@@ -11,6 +11,15 @@
 # production
 /build
 
+# Optional REPL history
+.DS_Store
+.idea
+.vscode
+.env
+
+# Optional npm cache directory
+.npm
+
 # misc
 .DS_Store
 .env.local
