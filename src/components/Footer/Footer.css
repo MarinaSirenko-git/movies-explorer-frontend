@@ -1,0 +1,46 @@
+.footer {
+  max-width: 1140px;
+  width: 100%;
+  padding-top: 79px;
+  padding-bottom: 20px;
+}
+
+.footer__up-part {
+  border-bottom: 1px solid #E8E8E8;
+  padding-bottom: 20px;
+}
+
+.footer__project-name {
+  font-size: 13px;
+  font-weight: 400;
+  text-align: center;
+  color: #A0A0A0;
+}
+
+.footer__down-part {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer__nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer__link {
+  font-size: 13px;
+  font-weight: 400;
+  color: #000;
+  text-decoration: none;
+}
+
+.footer__copyright {
+  font-size: 13px;
+  font-weight: 400;
+  color: #000;
+}
