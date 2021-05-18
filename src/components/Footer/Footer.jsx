@@ -5,10 +5,10 @@ function Footer() {
   return (
     <footer className="footer">
       <div className="footer__up-part">
-        <p className="footer__project-name">Учебный проект Яндекс.Практикум х BeatFilm.</p>
+        <p className="footer__project-name">Учебный проект Яндекс.Практикум х&nbsp;BeatFilm.</p>
       </div>
       <div className="footer__down-part">
-        <p className="footer__copyright">© 2020</p>
+        <p className="footer__copyright">&copy;&nbsp;2020</p>
         <ul className="footer__nav">
           <li>
             <a

@@ -12,6 +12,12 @@
   text-decoration: none;
 }
 
+@media screen and (max-width: 580px) {
+  .header__link {
+    font-size: 10px;
+  }
+}
+
 .header__link_type_signup {
   color: #000000;
 }
@@ -26,4 +32,12 @@
   color: #fff;
   border-radius: 3px;
   margin: 0 0 0 30px;
+}
+
+@media screen and (max-width: 580px) {
+  .header__link_type_signin {
+    width: 54px;
+    height: 26px;
+    margin: 0 0 0 14px;
+  }
 }
