@@ -1,3 +1,4 @@
+
 .main__theme_style_gray {
   background-color: #DDDEE3;
 }
@@ -18,23 +19,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.main__space_type_header {
-  padding: 17px 70px 20px 70px;
-}
-
-@media screen and (max-width: 768px) {
-  .main__space_type_header {
-    padding: 18px 30px;
-  }
-}
-
-@media screen and (max-width: 580px) {
-  .main__space_type_header {
-    padding-left: 14px;
-    padding-right: 14px;
-  }
 }
 
 .main__space_type_promo {

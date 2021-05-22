@@ -7,14 +7,14 @@ import Footer from '../Footer/Footer';
 
 function Movies() {
   return (
-    <main className="movies">
-      <section className="movies__content">
-        <Header />
+    <div className="movies">
+      <Header />
+      <main className="movies__content">
         <SearchForm />
         <MoviesCardList />
-        <Footer />
-      </section>
-    </main>
+      </main>
+      <Footer />
+    </div>
   );
 }
 
