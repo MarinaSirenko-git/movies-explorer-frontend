@@ -4,7 +4,9 @@
 }
 
 .project__list {
-  display: flex;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 40px;
   list-style: none;
   padding: 0;
@@ -19,7 +21,8 @@
 
 @media screen and (max-width: 580px) {
   .project__list {
-    flex-direction: column;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr;
     margin: 0 0 60px 0;
     gap: 56px;
   }
