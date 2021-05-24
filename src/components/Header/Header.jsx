@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import Logo from '../Logo/Logo';
 import Navigation from '../Navigation/Navigation';
 import './Header.css';
@@ -12,5 +12,9 @@ function Header({ loggedIn }) {
     </header>
   );
 }
+
+Header.propTypes = {
+  loggedIn: PropTypes.bool.isRequired,
+};
 
 export default Header;

@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import './StartPage.css';
 import { Link, useLocation } from 'react-router-dom';
 import Logo from '../Logo/Logo';
@@ -33,5 +33,9 @@ function StartPage({ isRegister }) {
     </main>
   );
 }
+
+StartPage.propTypes = {
+  isRegister: PropTypes.bool.isRequired,
+};
 
 export default StartPage;

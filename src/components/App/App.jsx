@@ -16,7 +16,7 @@ function App() {
           <StartPage isRegister />
         </Route>
         <Route path="/signin">
-          <StartPage />
+          <StartPage isRegister={false} />
         </Route>
         <Route path="/" exact>
           <Main />

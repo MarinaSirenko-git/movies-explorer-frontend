@@ -1,7 +1,7 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Navigation.css';
+import PropTypes from 'prop-types';
 
 function Navigation({ loggedIn }) {
   return (
@@ -74,5 +74,9 @@ function Navigation({ loggedIn }) {
     </div>
   );
 }
+
+Navigation.propTypes = {
+  loggedIn: PropTypes.bool.isRequired,
+};
 
 export default Navigation;

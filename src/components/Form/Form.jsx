@@ -1,6 +1,6 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import './Form.css';
+import PropTypes from 'prop-types';
 
 function Form({ isRegister }) {
   return (
@@ -25,5 +25,9 @@ function Form({ isRegister }) {
     </form>
   );
 }
+
+Form.propTypes = {
+  isRegister: PropTypes.bool.isRequired,
+};
 
 export default Form;
