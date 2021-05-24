@@ -1,3 +1,5 @@
+/* NotFound */
+
 .notfound {
   min-height: 100vh;
   display: grid;
@@ -7,7 +9,9 @@
   justify-items: center;
 }
 
-.notfound-error {
+/* Error */
+
+.notfound__error {
   font-size: 140px;
   font-weight: 400;
   line-height: 1.3em;
@@ -17,12 +21,14 @@
 }
 
 @media screen and (max-width: 580px) {
-  .notfound-error {
+  .notfound__error {
     font-size: 80px;
   }
 }
 
-.notfound-text {
+/* Text */
+
+.notfound__text {
   font-size: 16px;
   font-weight: 400;
   color: #000;
@@ -30,12 +36,14 @@
 }
 
 @media screen and (max-width: 580px) {
-  .notfound-text {
+  .notfound__text {
     font-size: 12px;
   }
 }
 
-.notfound-link {
+/* Link */
+
+.notfound__link {
   text-decoration: none;
   color: #3456F3;
   font-size: 14px;
@@ -44,7 +52,7 @@
 }
 
 @media screen and (max-width: 580px) {
-  .notfound-link {
+  .notfound__link {
     font-size: 12px;
   }
 }

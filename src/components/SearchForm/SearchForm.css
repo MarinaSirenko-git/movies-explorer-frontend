@@ -1,7 +1,11 @@
+/* Search */
+
 .search {
   padding: 70px 0 80px;
   border-bottom: 1px solid #E8E8E8;
 }
+
+/* Form */
 
 .search__form {
   display: grid;
@@ -9,11 +13,7 @@
   grid-template-columns: 42px 870px 226px;
 }
 
-.search__icon {
-  grid-column: 1 / 2;
-  grid-row: 1 /2;
-  z-index: 2;
-}
+/* Label */
 
 .search__label_type_input {
   grid-column: 1 / 4;
@@ -25,10 +25,14 @@
   grid-row: 1 / 2;
 }
 
+/* Checkbox */
+
 .search__checkbox {
   grid-column: 3 / 4;
   grid-row: 1 / 2;
 }
+
+/* Input */
 
 .search__input {
   width: 100%;
@@ -62,6 +66,8 @@
   display: none;
 }
 
+/* Icon */
+
 .search__icon {
   display: flex;
   align-items: center;
@@ -74,7 +80,12 @@
   background-image: url(../../images/search-icon-gray.svg);
   background-repeat: no-repeat;
   background-position: center;
+  grid-column: 1 / 2;
+  grid-row: 1 /2;
+  z-index: 2;
 }
+
+/* Btn */
 
 .search__btn {
   display: flex;

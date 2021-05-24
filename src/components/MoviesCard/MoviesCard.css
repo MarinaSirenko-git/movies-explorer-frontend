@@ -1,9 +1,13 @@
+/* Text */
+
 .movies-card__text {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 14px 14px 0;
 }
+
+/* Title */
 
 .movies-card__title {
   font-size: 13px;
@@ -15,6 +19,8 @@
   max-width: 250px;
   margin: 0;
 }
+
+/* Duration */
 
 .movies-card__duration {
   font-size: 11px;
@@ -30,6 +36,8 @@
   justify-content: center;
 }
 
+/* Img */
+
 .movies-card__img {
   width: 100%;
   max-width: 360px;
@@ -40,9 +48,13 @@
   border-radius: 6px;
 }
 
+/* Poster */
+
 .movies-card__poster {
   position: relative;
 }
+
+/* Save-btn */
 
 .movies-card__save-btn {
   position: absolute;
@@ -61,6 +73,8 @@
   transition: opacity 0.5s ease;
   display: none;
 }
+
+/* Icon */
 
 .movies-card__icon {
   position: absolute;

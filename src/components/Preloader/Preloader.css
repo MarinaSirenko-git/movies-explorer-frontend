@@ -39,6 +39,8 @@
   }
 }
 
+/* Preloader */
+
 .preloader {
   display: flex;
   align-items: center;
@@ -49,11 +51,15 @@
   padding: 10% 0 20px;
 }
 
+/* Container */
+
 .preloader__container {
   width: 100px;
   height: 100px;
   position: relative;
 }
+
+/* Round */
 
 .preloader__round {
   width: 100px;

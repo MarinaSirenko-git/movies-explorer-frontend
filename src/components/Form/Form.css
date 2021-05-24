@@ -1,13 +1,19 @@
+/* Form */
+
 .form {
   max-width: 396px;
   width: 100%;
 }
+
+/* Label */
 
 .form__label {
   font-size: 10px;
   font-weight: 400;
   color: #A0A0A0;
 }
+
+/* Input */
 
 .form__input {
   border: none;
@@ -20,6 +26,8 @@
   font-size: 14px;
   font-weight: 500;
 }
+
+/* Btn */
 
 .form__btn {
   width: 100%;

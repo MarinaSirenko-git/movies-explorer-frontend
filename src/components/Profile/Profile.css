@@ -1,9 +1,13 @@
+/* Profile */
+
 .profile {
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
 }
+
+/* Content */
 
 .profile__content {
   max-width: 1140px;
@@ -20,6 +24,8 @@
   }
 }
 
+/* Title */
+
 .profile__title {
   font-size: 24px;
   font-weight: 500;
@@ -27,16 +33,22 @@
   margin: 74px 0 105px;
 }
 
+/* Form */
+
 .profile__form {
   max-width: 410px;
   width: 100%;
   padding-bottom: 16px;
 }
 
+/* Label */
+
 .profile__label {
   display: flex;
   align-items: center;
 }
+
+/* Subtitle */
 
 .profile__subtitle {
   display: block;
@@ -53,6 +65,8 @@
   border-bottom: none;
 }
 
+/* Input */
+
 .profile__input {
   background: transparent;
   border: none;
@@ -68,6 +82,8 @@
 .profile__input_bottom {
   border-bottom: none;
 }
+
+/* Btn */
 
 .profile__btn {
   border: none;

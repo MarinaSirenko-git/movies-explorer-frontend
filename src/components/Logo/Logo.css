@@ -1,4 +1,6 @@
-.header__logo {
+/* Logo */
+
+.logo {
   max-width: 38px;
   max-height: 38px;
   display: block;

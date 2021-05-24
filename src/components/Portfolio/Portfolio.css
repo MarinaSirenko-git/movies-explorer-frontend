@@ -1,7 +1,11 @@
+/* Portfolio */
+
 .portfolio {
   max-width: 1140px;
   width: 100%;
 }
+
+/* Title */
 
 .portfolio__title {
   font-size: 18px;
@@ -16,11 +20,15 @@
   }
 }
 
+/* List */
+
 .portfolio__list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
+
+/* Item */
 
 .portfolio__item {
   border-bottom: 1px solid #E8E8E8;
@@ -35,6 +43,8 @@
   }
 }
 
+/* Link */
+
 .portfolio__link {
   text-decoration: none;
   display: flex;
@@ -42,6 +52,8 @@
   justify-content: space-between;
   margin: 0;
 }
+
+/* Link-text */
 
 .portfolio__link-text {
   font-size: 30px;

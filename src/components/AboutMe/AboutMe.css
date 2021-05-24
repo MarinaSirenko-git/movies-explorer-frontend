@@ -1,3 +1,5 @@
+/* AboutMe */
+
 .about-me {
   max-width: 1140px;
   width: 100%;
@@ -24,6 +26,8 @@
   }
 }
 
+/* Title */
+
 .about-me__title {
   font-size: 50px;
   font-weight: 400;
@@ -44,6 +48,8 @@
   }
 }
 
+/* Subtitle */
+
 .about-me__subtitle {
   font-size: 18px;
   font-weight: 500;
@@ -63,6 +69,8 @@
     margin: 0 0 20px 0;
   }
 }
+
+/* Text */
 
 .about-me__text {
   font-size: 14px;
@@ -86,6 +94,8 @@
   }
 }
 
+/* Img */
+
 .about-me__img {
   display: block;
   max-width: 270px;
@@ -108,6 +118,8 @@
   }
 }
 
+/* List */
+
 .about-me__list {
   display: flex;
   flex-wrap: wrap;
@@ -118,6 +130,8 @@
   margin: 0;
   padding: 0;
 }
+
+/* Link */
 
 .about-me__link {
   font-size: 14px;

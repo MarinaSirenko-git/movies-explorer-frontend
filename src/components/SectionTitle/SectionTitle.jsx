@@ -3,7 +3,7 @@ import './SectionTitle.css';
 import PropTypes from 'prop-types';
 
 function SectionTitle({ title }) {
-  return <h2 className="section__title">{title}</h2>;
+  return <h2 className="section-title">{title}</h2>;
 }
 
 SectionTitle.propTypes = {

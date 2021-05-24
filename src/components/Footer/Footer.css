@@ -1,3 +1,5 @@
+/* Footer */
+
 .footer {
   max-width: 1140px;
   width: 100%;
@@ -11,10 +13,30 @@
   }
 }
 
+/* Up-part */
+
 .footer__up-part {
   border-bottom: 1px solid #E8E8E8;
   padding-bottom: 20px;
 }
+
+/* Down-part */
+
+.footer__down-part {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 20px;
+}
+
+@media screen and (max-width: 580px) {
+  .footer__down-part {
+    flex-direction: column-reverse;
+    padding-top: 30px;
+  }
+}
+
+/* Project-name */
 
 .footer__project-name {
   font-size: 13px;
@@ -30,19 +52,7 @@
   }
 }
 
-.footer__down-part {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 20px;
-}
-
-@media screen and (max-width: 580px) {
-  .footer__down-part {
-    flex-direction: column-reverse;
-    padding-top: 30px;
-  }
-}
+/* Nav */
 
 .footer__nav {
   list-style: none;
@@ -60,6 +70,8 @@
   }
 }
 
+/* Link */
+
 .footer__link {
   font-size: 13px;
   font-weight: 400;
@@ -72,6 +84,8 @@
     font-size: 12px;
   }
 }
+
+/* Copyright */
 
 .footer__copyright {
   font-size: 13px;

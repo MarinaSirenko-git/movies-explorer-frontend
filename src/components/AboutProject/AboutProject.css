@@ -1,9 +1,13 @@
-.project {
+/* About-project */
+
+.about-project {
   max-width: 1140px;
   width: 100%;
 }
 
-.project__list {
+/* List */
+
+.about-project__list {
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: repeat(2, 1fr);
@@ -14,13 +18,13 @@
 }
 
 @media screen and (max-width: 768px) {
-  .project__list {
+  .about-project__list {
     margin: 0 0 90px 0;
   }
 }
 
 @media screen and (max-width: 580px) {
-  .project__list {
+  .about-project__list {
     grid-template-rows: 1fr 1fr;
     grid-template-columns: 1fr;
     margin: 0 0 60px 0;
@@ -28,7 +32,9 @@
   }
 }
 
-.project__subtitle {
+/* Subtitle */
+
+.about-project__subtitle {
   font-size: 20px;
   font-weight: 400;
   letter-spacing: -0.04em;
@@ -37,13 +43,15 @@
 }
 
 @media screen and (max-width: 580px) {
-  .project__subtitle {
+  .about-project__subtitle {
     font-size: 18px;
     margin: 0 0 16px 0;
   }
 }
 
-.project__text {
+/* Text */
+
+.about-project__text {
   font-size: 14px;
   font-weight: 400;
   line-height: 1.57em;
@@ -52,30 +60,34 @@
 }
 
 @media screen and (max-width: 768px) {
-  .project__text {
+  .about-project__text {
     font-size: 12px;
   }
 }
 
 @media screen and (max-width: 580px) {
-  .project__text {
+  .about-project__text {
     font-size: 11px;
   }
 }
 
-.project__time-line {
+/* Time-line */
+
+.about-project__time-line {
   display: grid;
   grid-template-rows: 36px 36px;
   grid-template-columns: 1fr 4fr;
 }
 
 @media screen and (max-width: 580px) {
-  .project__time-line {
+  .about-project__time-line {
     grid-template-columns: 1fr 2fr;
   }
 }
 
-.project__time {
+/* Time */
+
+.about-project__time {
   font-size: 14px;
   font-weight: 400;
   margin: 0;
@@ -85,22 +97,24 @@
 }
 
 @media screen and (max-width: 580px) {
-  .project__time {
+  .about-project__time {
     font-size: 11px;
   }
 }
 
-.project__time_type_short {
+.about-project__time_type_short {
   background-color: #3456F3;
   color: #FFFFFF;
 }
 
-.project__time_type_long {
+.about-project__time_type_long {
   background-color: #F2F2F2;
   color: #000;
 }
 
-.project__task {
+/* Task */
+
+.about-project__task {
   font-size: 14px;
   font-weight: 500;
   color: #A0A0A0;
@@ -111,7 +125,7 @@
 }
 
 @media screen and (max-width: 580px) {
-  .project__task {
+  .about-project__task {
     font-size: 11px;
     margin: 0;
   }
