@@ -7,6 +7,7 @@
   grid-template-rows: 32% min-content 200px;
   align-content: center;
   justify-items: center;
+  background-color: #fafafa;
 }
 
 /* Error */

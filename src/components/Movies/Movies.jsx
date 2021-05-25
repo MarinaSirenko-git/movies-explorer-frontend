@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import './Movies.css';
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
@@ -10,7 +10,7 @@ import Footer from '../Footer/Footer';
 function Movies({ isLoading }) {
   return (
     <div className="movies">
-      <Header />
+      <Header loggedIn />
       <main className="movies__content">
         <SearchForm />
         {isLoading ? <Preloader /> : <MoviesCardList />}
@@ -19,5 +19,9 @@ function Movies({ isLoading }) {
     </div>
   );
 }
+
+Movies.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+};
 
 export default Movies;
