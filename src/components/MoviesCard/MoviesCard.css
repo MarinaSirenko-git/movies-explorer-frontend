@@ -2,6 +2,8 @@
 
 .movies-card {
   margin-bottom: 30px;
+  position: relative;
+  z-index: 1;
 }
 
 @media screen and (max-width: 1024px) {
@@ -83,12 +85,6 @@
   }
 }
 
-/* Poster */
-
-.movies-card__poster {
-  position: relative;
-}
-
 /* Save-btn */
 
 .movies-card__save-btn {
@@ -105,8 +101,8 @@
   border: none;
   border-radius: 30px;
   cursor: pointer;
-  transition: opacity 0.5s ease;
-  display: none;
+  opacity: 0;
+  transition: opacity .5s ease;
 }
 
 /* Icon */
@@ -122,4 +118,9 @@
   background-image: url(../../images/save-icon.svg);
   background-repeat: no-repeat;
   background-position: center;
+  display: none;
+}
+
+.movies-card:hover .movies-card__save-btn {
+  opacity: 1;
 }
