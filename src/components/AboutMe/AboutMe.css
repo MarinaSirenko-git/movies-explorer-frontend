@@ -9,6 +9,8 @@
   grid-column-gap: 270px;
   column-gap: 270px;
   row-gap: 99px;
+  padding-top: 66px;
+  padding-bottom: 101px;
 }
 
 @media screen and (max-width: 1024px) {
@@ -18,11 +20,20 @@
   }
 }
 
+@media screen and (max-width: 768px) {
+  .about-me {
+    padding-top: 62px;
+    padding-bottom: 90px;
+  }
+}
+
 @media screen and (max-width: 580px) {
   .about-me {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(3, minmax(min-content, max-content));
     row-gap: 40px;
+    padding-top: 60px;
+    padding-bottom: 70px;
   }
 }
 

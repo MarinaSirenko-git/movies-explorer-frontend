@@ -5,6 +5,12 @@
   z-index: 1;
 }
 
+/* Link */
+
+.movies-card__link {
+  text-decoration: none;
+}
+
 /* Text */
 
 .movies-card__text {

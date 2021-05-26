@@ -5,19 +5,7 @@
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  padding: 0 70px;
-}
-
-@media screen and (max-width: 1024px) {
-  .saved-movies {
-    padding: 0 30px;
-  }
-}
-
-@media screen and (max-width: 580px) {
-  .saved-movies {
-    padding: 0 10px;
-  }
+  background-color:#FAFAFA;
 }
 
 /* Content */
@@ -26,7 +14,22 @@
   max-width: 1140px;
   width: 100%;
   flex: 1 0 auto;
+  padding: 0 70px;
+  box-sizing: border-box;
 }
+
+@media screen and (max-width: 1024px) {
+  .saved-movies__content {
+    padding: 0 30px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .saved-movies__content {
+    padding: 0 10px;
+  }
+}
+
 
 /* Alt-text */
 

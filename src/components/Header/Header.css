@@ -6,21 +6,21 @@
   max-width: 1140px;
   width: 100%;
   background-color: transparent;
-  padding: 18px 0px;
-  box-sizing: border-box;
+  padding: 18px 70px;
   gap: 44px;
   position: relative;
+  margin: 0 auto;
 }
 
 @media screen and (max-width: 768px) {
   .header {
-    padding: 15px 0px;
+    padding: 15px 30px;
   }
 }
 
 @media screen and (max-width: 580px) {
   .header {
-    padding-left: 0px;
-    padding-right: 0px;
+    padding-left: 15px;
+    padding-right: 15px;
   }
 }

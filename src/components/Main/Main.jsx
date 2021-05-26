@@ -12,30 +12,32 @@ import Footer from '../Footer/Footer';
 function Main() {
   return (
     <div className="main">
-      <Header loggedIn={false} />
+      <div className="main__section_style_gray">
+        <Header loggedIn={false} />
+      </div>
       <main className="main__content">
-        <div className="main__theme_style_gray main__space_type_promo main__content_position_center">
+        <div className="main__section main__section_style_gray">
           <Promo />
         </div>
-        <div className="main__theme_style_snow main__space_type_title-m main__content_position_center">
+        <div className="main__section main__section_style_snow title-m">
           <SectionTitle title="О проекте" />
         </div>
-        <div className="main__theme_style_snow main__space_type_project main__content_position_center">
+        <div className="main__section main__section_style_snow">
           <Project />
         </div>
-        <div className="main__theme_style_whitesmoke main__space_type_title-s main__content_position_center">
+        <div className="main__section main__section_style_whitesmoke title-s">
           <SectionTitle title="Технологии" />
         </div>
-        <div className="main__theme_style_whitesmoke main__space_type_techs main__content_position_center">
+        <div className="main__section main__section_style_whitesmoke">
           <Techs />
         </div>
-        <div className="main__theme_style_snow main__space_type_title-m main__content_position_center">
+        <div className="main__section main__section_style_snow title-m">
           <SectionTitle title="Студент" />
         </div>
-        <div className="main__theme_style_snow main__space_type_about-me main__content_position_center">
+        <div className="main__section main__section_style_snow">
           <AboutMe />
         </div>
-        <div className="main__theme_style_snow main__space_type_portfolio main__content_position_center">
+        <div className="main__section main__section_style_snow">
           <Portfolio />
         </div>
       </main>

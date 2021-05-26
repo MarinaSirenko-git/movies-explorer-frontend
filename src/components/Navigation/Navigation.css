@@ -98,7 +98,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    z-index: 1;
+    z-index: 10;
     background: #FAFAFA;
     height: 100vh;
     width: 68%;
@@ -158,6 +158,28 @@
   .navigation__item {
     display: flex;
     justify-content: center;
+  }
+}
+
+.navigation__item_type_main {
+  order: 3;
+}
+
+@media screen and (max-width: 768px) {
+  .navigation__item_type_main {
+    order: 1;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .navigation__item_type_movies {
+    order: 2;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .navigation__item_type_save-movies {
+    order: 3;
   }
 }
 
@@ -237,13 +259,13 @@
 }
 
 .navigation__link_type_main {
-  font-size: 13px;
-  font-weight: 400;
+  display: none;
 }
 
 @media screen and (max-width: 768px) {
   .navigation__link_type_main {
     font-size: 18px;
     font-weight: 500;
+    display: block;
   }
 }

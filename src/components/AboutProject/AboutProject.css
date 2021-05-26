@@ -3,6 +3,21 @@
 .about-project {
   max-width: 1140px;
   width: 100%;
+  padding-top: 70px;
+  padding-bottom: 110px;
+}
+
+@media screen and (max-width: 768px) {
+  .about-project {
+    padding-bottom: 90px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .main__space_type_project {
+    padding-top: 60px;
+    padding-bottom: 58px;
+  }
 }
 
 /* List */

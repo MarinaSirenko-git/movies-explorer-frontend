@@ -3,6 +3,19 @@
 .portfolio {
   max-width: 1140px;
   width: 100%;
+  padding-bottom: 110px;
+}
+
+@media screen and (max-width: 768px) {
+  .portfolio {
+    padding-bottom: 75px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .portfolio {
+    padding-bottom: 70px;
+  }
 }
 
 /* Title */

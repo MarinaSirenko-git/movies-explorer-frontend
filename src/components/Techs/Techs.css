@@ -6,6 +6,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 90px;
+  padding-bottom: 100px;
+}
+
+@media screen and (max-width: 768px) {
+  .techs {
+    padding-top: 80px;
+    padding-bottom: 90px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .techs {
+    padding-top: 60px;
+    padding-bottom: 70px;
+  }
 }
 
 /* Title */

@@ -43,17 +43,17 @@ function Navigation({ loggedIn }) {
           <ul className="navigation__list navigation__list_type_accaunt" id="menu">
             <li>
               <ul className="navigation__left-column">
-                <li className="navigation__item">
+                <li className="navigation__item navigation__item_type_main">
                   <Link className="navigation__link navigation__link_type_main" to="/">
                     Главная
                   </Link>
                 </li>
-                <li className="navigation__item">
+                <li className="navigation__item navigation__item_type_movies">
                   <Link className="navigation__link navigation__link_type_movies" to="/movies">
                     Фильмы
                   </Link>
                 </li>
-                <li className="navigation__item">
+                <li className="navigation__item navigation__item_type_save-movies">
                   <Link
                     className="navigation__link navigation__link_type_save-movies"
                     to="/saved-movies"
