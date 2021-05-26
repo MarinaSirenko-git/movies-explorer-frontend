@@ -8,21 +8,36 @@
 /* List */
 
 .cards-list__list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(min-content, max-content));
+  grid-template-rows: repeat(auto-fill, minmax(201px, 1fr));
+  row-gap: 60px;
+  column-gap: 30px;
   padding: 70px 0 0 0;
   margin: 0;
   list-style: none;
 }
 
-@media screen and (max-width: 580px) {
+@media screen and (max-width: 1024px) {
   .cards-list__list {
-    padding-top: 50px;
+    row-gap: 30px;
   }
 }
 
+@media screen and (max-width: 768px) {
+  .cards-list__list {
+    grid-template-columns: repeat(2, minmax(min-content, max-content));
+    grid-template-rows: repeat(auto-fill, minmax(190px, 1fr));
+    row-gap: 47px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .cards-list__list {
+    grid-template-columns: minmax(min-content, max-content);
+    row-gap: 39px;
+  }
+}
 
 /* Btn */
 
