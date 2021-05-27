@@ -7,18 +7,18 @@ function SearchForm() {
     <div className="search">
       <form className="search__form" name="q-form" role="search">
         <span className="search__icon" />
-        <label className="search__label search__label_type_input" htmlFor="q">
+        <label className="search__label search__label_type_input" htmlFor="search">
           <input
             className="search__input"
             type="search"
             name="q"
             aria-label="Поле поиска по каталогу фильмов"
             placeholder="Фильм"
+            id="search"
+            required
           />
         </label>
-        <label className="search__label search__label_type_btn" htmlFor="button">
-          <input className="search__btn" type="button" area-role="Найти" name="button" />
-        </label>
+        <button className="search__btn" aria-label="Найти" type="submit" />
         <div className="search__checkbox">
           <FilterCheckbox />
         </div>

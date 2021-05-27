@@ -36,14 +36,6 @@
   grid-row: 1 / 2;
 }
 
-.search__label_type_btn {
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
-  justify-self: end;
-  margin-right: 19px;
-  z-index: 3;
-}
-
 /* Checkbox */
 
 .search__checkbox {
@@ -157,6 +149,11 @@
   background-repeat: no-repeat;
   background-position: center;
   cursor: pointer;
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  justify-self: end;
+  margin-right: 19px;
+  z-index: 3;
   transition: all 0.5s ease;
 }
 
