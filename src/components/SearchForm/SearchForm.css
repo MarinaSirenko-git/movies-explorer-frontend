@@ -152,9 +152,14 @@
   height: 34px;
   border-radius: 50%;
   border: none;
-  background-color: #3456F3;
+  background-color: #cbcbcb;
   background-image: url(../../images/search-icon.svg);
   background-repeat: no-repeat;
   background-position: center;
   cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+.search__btn:hover {
+  background-color: #3456F3;
 }
