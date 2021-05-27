@@ -150,6 +150,10 @@
   display: none;
 }
 
+.movies-card__icon_visible {
+  display: block;
+}
+
 .movies-card_type_main:hover .movies-card__save-btn {
   opacity: 1;
 }

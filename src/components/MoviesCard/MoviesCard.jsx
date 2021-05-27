@@ -4,7 +4,7 @@ import Poster from '../../images/test-poster.jpg';
 
 function MoviesCard() {
   return (
-    <div className="movies-card movies-card_type_main">
+    <div className="movies-card">
       <button className="movies-card__save-btn" type="button">
         Сохранить
       </button>
@@ -13,7 +13,7 @@ function MoviesCard() {
         type="button"
         aria-label="Удалить фильм из избранного"
       />
-      <span className="movies-card__icon" />
+      <span className="movies-card__icon movies-card__icon_visible" />
       <a
         href="https://www.youtube.com/watch?v=1s5hVmVNPts"
         className="movies-card__link"
