@@ -4,10 +4,15 @@ import Poster from '../../images/test-poster.jpg';
 
 function MoviesCard() {
   return (
-    <div className="movies-card">
+    <div className="movies-card movies-card_type_main">
       <button className="movies-card__save-btn" type="button">
         Сохранить
       </button>
+      <button
+        className="movies-card__delete-btn"
+        type="button"
+        aria-label="Удалить фильм из избранного"
+      />
       <span className="movies-card__icon" />
       <a
         href="https://www.youtube.com/watch?v=1s5hVmVNPts"

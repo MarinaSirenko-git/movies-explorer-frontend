@@ -33,7 +33,7 @@
 
 @media screen and (max-width: 580px) {
   .profile__content {
-    padding: 0px 15px;
+    padding: 0px 15px 30px;
   }
 }
 
@@ -113,6 +113,12 @@
 .profile__btn_type_edit {
   color: #000;
   margin-top: 200px;
+}
+
+@media screen and (max-width: 568px) and (max-height: 320px) {
+  .profile__btn_type_edit {
+    margin-top: 50px;
+  }
 }
 
 .profile__btn_type_logout {
