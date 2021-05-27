@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import './Navigation.css';
 import PropTypes from 'prop-types';
 
@@ -13,7 +13,6 @@ function Navigation({ loggedIn }) {
             type="button"
             aria-label="Показать меню"
             aria-controls="menu"
-            aria-hidden="true"
           />
         )}
         {loggedIn && (
@@ -22,20 +21,27 @@ function Navigation({ loggedIn }) {
             type="button"
             aria-label="Скрыть меню"
             aria-controls="menu"
-            aria-hidden="true"
           />
         )}
         {loggedIn === false && (
           <ul className="navigation__list navigation__list_type_main">
             <li>
-              <Link className="navigation__link navigation__link_type_signup" to="/signup">
+              <NavLink
+                activeClassName="navigation__link_active"
+                className="navigation__link navigation__link_type_signup"
+                to="/signup"
+              >
                 Регистрация
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link className="navigation__link navigation__link_type_signin" to="/signin">
+              <NavLink
+                activeClassName="navigation__link_active"
+                className="navigation__link navigation__link_type_signin"
+                to="/signin"
+              >
                 Войти
-              </Link>
+              </NavLink>
             </li>
           </ul>
         )}
@@ -44,22 +50,32 @@ function Navigation({ loggedIn }) {
             <li>
               <ul className="navigation__left-column">
                 <li className="navigation__item navigation__item_type_main">
-                  <Link className="navigation__link navigation__link_type_main" to="/">
+                  <NavLink
+                    exact
+                    activeClassName="navigation__link_active"
+                    className="navigation__link navigation__link_type_main"
+                    to="/"
+                  >
                     Главная
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="navigation__item navigation__item_type_movies">
-                  <Link className="navigation__link navigation__link_type_movies" to="/movies">
+                  <NavLink
+                    activeClassName="navigation__link_active"
+                    className="navigation__link navigation__link_type_movies"
+                    to="/movies"
+                  >
                     Фильмы
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="navigation__item navigation__item_type_save-movies">
-                  <Link
+                  <NavLink
+                    activeClassName="navigation__link_active"
                     className="navigation__link navigation__link_type_save-movies"
                     to="/saved-movies"
                   >
                     Сохранённые фильмы
-                  </Link>
+                  </NavLink>
                 </li>
               </ul>
             </li>

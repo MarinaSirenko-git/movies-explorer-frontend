@@ -6,19 +6,17 @@
   align-items: center;
   min-height: 100vh;
   background-color: #fafafa;
-  box-sizing: border-box;
 }
 
 /* Content */
 
 .profile__content {
-  max-width: 1140px;
+  max-width: calc(1140px + 70px * 2);
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 0 70px;
-  box-sizing: border-box;
 }
 
 @media screen and (max-width: 1024px) {
@@ -71,7 +69,7 @@
   font-weight: 500;
   width: 20%;
   height: 50px;
-  border-bottom: 1px solid #E8E8E8;
+  border-bottom: 1px solid #e8e8e8;
   display: flex;
   align-items: center;
 }
@@ -85,7 +83,7 @@
 .profile__input {
   background: transparent;
   border: none;
-  border-bottom: 1px solid #E8E8E8;
+  border-bottom: 1px solid #e8e8e8;
   width: 80%;
   height: 50px;
   font-size: 11px;
@@ -118,8 +116,6 @@
 }
 
 .profile__btn_type_logout {
-  color: #EE3465;
+  color: #ee3465;
   font-weight: 500;
 }
-
-

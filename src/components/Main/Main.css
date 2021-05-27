@@ -6,7 +6,6 @@
   align-items: center;
   padding-left: 70px;
   padding-right: 70px;
-  box-sizing: border-box;
 }
 
 @media screen and (max-width: 768px) {
@@ -23,22 +22,31 @@
   }
 }
 
+/* Promo */
+
+@media screen and (max-width: 580px) {
+  .main__section_promo {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+
 /* Style */
 
 .main__section_style_gray {
-  background-color: #DDDEE3;
+  background-color: #dddee3;
 }
 
 .main__section_style_snow {
-  background-color: #FAFAFA;
+  background-color: #fafafa;
 }
 
 .main__section_style_whitesmoke {
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
 }
 
 .main__section_style_lightsmoke {
-  background-color: #F8F8F8;
+  background-color: #f8f8f8;
 }
 
 /* Title-s */

@@ -90,7 +90,12 @@
   border-radius: 30px;
   cursor: pointer;
   opacity: 0;
-  transition: opacity .5s ease;
+  transition: all .5s ease;
+}
+
+.movies-card__save-btn:hover {
+  background-color: #EE3465;
+  color: #fff;
 }
 
 /* Icon */

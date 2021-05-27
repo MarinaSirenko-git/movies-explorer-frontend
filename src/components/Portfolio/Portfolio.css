@@ -23,7 +23,7 @@
 .portfolio__title {
   font-size: 18px;
   font-weight: 400;
-  color: #A0A0A0;
+  color: #a0a0a0;
   margin: 0 0 35px 0;
 }
 
@@ -44,7 +44,7 @@
 /* Item */
 
 .portfolio__item {
-  border-bottom: 1px solid #E8E8E8;
+  border-bottom: 1px solid #e8e8e8;
   padding-top: 26px;
   padding-bottom: 26px;
 }
@@ -64,6 +64,11 @@
   align-items: center;
   justify-content: space-between;
   margin: 0;
+  transition: opacity .5s;
+}
+
+.portfolio__link:hover {
+  opacity: 0.7;
 }
 
 /* Link-text */

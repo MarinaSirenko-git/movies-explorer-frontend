@@ -6,7 +6,7 @@
   gap: 18px;
   flex-direction: row-reverse;
   padding: 10px 30px 10px 29px;
-  border-left: 1px solid #CBCBCB;
+  border-left: 1px solid #cbcbcb;
   max-height: 40px;
   position: relative;
   font-size: 13px;
@@ -46,10 +46,9 @@
   width: 34px;
   min-width: 34px;
   height: 14px;
-  background-color: #CBCBCB;
+  background-color: #cbcbcb;
   border-radius: 20px;
   cursor: pointer;
-  box-sizing: border-box;
   transition: all 0.5s ease;
 }
 
@@ -61,11 +60,14 @@
   border-radius: 50%;
   margin-left: 1px;
   margin-right: 1px;
+  transition: all 0.5s ease;
 }
 
 .filter-checkbox__input:checked + .filter-checkbox__pseudo-input {
   justify-content: flex-end;
-  background-color: #2BE080;
+  background-color: #2be080;
+  border: none;
+  transition: all 0.5s ease;
 }
 
 .filter-checkbox__input:focus + .filter-checkbox__pseudo-input {

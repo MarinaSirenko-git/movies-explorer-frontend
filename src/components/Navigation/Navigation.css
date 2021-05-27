@@ -104,7 +104,6 @@
     width: 68%;
     padding-top: 160px;
     padding-bottom: 90px;
-    box-sizing: border-box;
   }
 
   .navigation__list_type_accaunt:before {
@@ -232,6 +231,12 @@
   background-color: #F4F4F4;
   font-size: 14px;
   font-weight: 500;
+  transition: all .5s;
+}
+
+.navigation__link_type_profile:hover {
+  background-color: #3456F3;
+  color: #fff;
 }
 
 .navigation__link_type_save-movies {
@@ -248,7 +253,7 @@
 
 .navigation__link_type_movies {
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 @media screen and (max-width: 768px) {
@@ -267,5 +272,17 @@
     font-size: 18px;
     font-weight: 500;
     display: block;
+  }
+}
+
+/* Link_active */
+
+.navigation__link_active {
+  font-weight: 500;
+}
+
+@media screen and (max-width: 768px) {
+  .navigation__link_active {
+    border-bottom: 2px solid;
   }
 }

@@ -16,7 +16,7 @@ function Main() {
         <Header loggedIn={false} />
       </div>
       <main className="main__content">
-        <div className="main__section main__section_style_gray">
+        <div className="main__section main__section_promo main__section_style_gray">
           <Promo />
         </div>
         <div className="main__section main__section_style_snow title-m">

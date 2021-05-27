@@ -54,6 +54,12 @@
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
+  transition: all .5s;;
+}
+
+.cards-list__btn:hover {
+  background-color: #3456F3;
+  color: #fff;
 }
 
 @media screen and (max-width: 580px) {

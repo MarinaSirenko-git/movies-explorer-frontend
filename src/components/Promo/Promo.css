@@ -49,6 +49,7 @@
 @media screen and (max-width: 580px) {
   .promo__title {
     font-size: 31px;
+    max-width: 300px;
   }
 }
 
@@ -73,6 +74,3 @@
     align-self: center;
   }
 }
-
-
-

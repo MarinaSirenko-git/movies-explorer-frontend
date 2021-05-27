@@ -118,12 +118,12 @@
 }
 
 .about-project__time_type_short {
-  background-color: #3456F3;
-  color: #FFFFFF;
+  background-color: #3456f3;
+  color: #ffffff;
 }
 
 .about-project__time_type_long {
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
   color: #000;
 }
 
@@ -132,7 +132,7 @@
 .about-project__task {
   font-size: 14px;
   font-weight: 500;
-  color: #A0A0A0;
+  color: #a0a0a0;
   margin: 8px 0 0 0;
   display: flex;
   align-items: center;
