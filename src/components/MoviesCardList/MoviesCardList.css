@@ -1,4 +1,5 @@
 /* Card-list */
+
 .cards-list {
   display: flex;
   flex-direction: column;
@@ -20,14 +21,17 @@
 
 @media screen and (max-width: 1024px) {
   .cards-list__list {
-    row-gap: 30px;
+    row-gap: 20px;
+    column-gap: 20px;
+    grid-template-rows: repeat(auto-fill, minmax(160px, 1fr));
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 836px) {
   .cards-list__list {
     grid-template-columns: repeat(2, minmax(min-content, max-content));
     grid-template-rows: repeat(auto-fill, minmax(190px, 1fr));
+    column-gap: 30px;
     row-gap: 47px;
   }
 }

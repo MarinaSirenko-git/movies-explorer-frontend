@@ -1,10 +1,16 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import './MoviesCard.css';
 import Poster from '../../images/test-poster.jpg';
 
 function MoviesCard() {
+  const location = useLocation();
   return (
-    <div className="movies-card">
+    <div
+      className={`movies-card ${
+        location.pathname === '/saved-movies' ? 'movies-card_type_saved' : 'movies-card_type_main'
+      }`}
+    >
       <button className="movies-card__save-btn" type="button">
         Сохранить
       </button>
@@ -13,7 +19,6 @@ function MoviesCard() {
         type="button"
         aria-label="Удалить фильм из избранного"
       />
-      <span className="movies-card__icon movies-card__icon_visible" />
       <a
         href="https://www.youtube.com/watch?v=1s5hVmVNPts"
         className="movies-card__link"
