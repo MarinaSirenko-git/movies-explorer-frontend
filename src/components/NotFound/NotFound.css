@@ -1,0 +1,87 @@
+/* NotFound */
+
+.notfound {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 32% min-content 200px;
+  align-content: center;
+  justify-items: center;
+  background-color: #fafafa;
+}
+
+/* IPhone X */
+
+@media screen and (max-width: 812px) and (max-height: 375px) {
+  .notfound {
+    grid-template-rows: min-content min-content 1fr;
+    padding-bottom: 50px;
+    padding-top: 50px;
+  }
+}
+
+/* IPhone 6/7/8 Plus */
+
+@media screen and (max-width: 736px) and (max-height: 414px) {
+  .notfound {
+    grid-template-rows: min-content min-content 1fr;
+    padding-bottom: 30px;
+    padding-top: 30px;
+  }
+}
+
+/* IPhone 5 */
+
+@media screen and (max-width: 568px) and (max-height: 320px) {
+  .notfound {
+    grid-template-rows: 1fr min-content 1fr;
+  }
+}
+
+/* Error */
+
+.notfound__error {
+  font-size: 140px;
+  font-weight: 400;
+  line-height: 1.3em;
+  color: #000;
+  margin: 0;
+  align-self: end;
+}
+
+@media screen and (max-width: 580px) {
+  .notfound__error {
+    font-size: 80px;
+  }
+}
+
+/* Text */
+
+.notfound__text {
+  font-size: 16px;
+  font-weight: 400;
+  color: #000;
+  margin: 0;
+}
+
+@media screen and (max-width: 580px) {
+  .notfound__text {
+    font-size: 12px;
+  }
+}
+
+/* Link */
+
+.notfound__link {
+  text-decoration: none;
+  color: #3456F3;
+  font-size: 14px;
+  font-weight: 400;
+  align-self: end;
+}
+
+@media screen and (max-width: 580px) {
+  .notfound__link {
+    font-size: 12px;
+  }
+}

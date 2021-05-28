@@ -1,0 +1,71 @@
+/* Popup */
+
+.popup {
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 0;
+	opacity: 0;
+	overflow: hidden;
+	transition: opacity .6s ease-out;
+	z-index: 2;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Opened */
+
+.popup_opened {
+	display: flex;
+	opacity: 1;
+  min-height: 350px;
+	height: 100%;
+}
+
+.popup__wrap {
+  width: 100%;
+  max-width: 430px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  padding: 36px;
+  color: black;
+  position: relative;
+}
+
+@media screen and (max-width: 768px) {
+  .popup__wrap {
+    margin: 0 15px;
+  }
+}
+
+/* Close-icon */
+.popup__close-icon {
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  background-image: url(../../images/cross.svg);
+  background-size: contain;
+  position: absolute;
+  top: 18px;
+  right: 18px;
+}
+
+/* Title */
+
+.popup__title {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.2;
+  text-align: center;
+  margin: 0 auto;
+  padding: 50px 0;
+}

@@ -1,0 +1,9 @@
+.app {
+  font-family: 'Inter', 'Arial', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  position: relative;
+  z-index: 1;
+  min-width: 320px;
+}

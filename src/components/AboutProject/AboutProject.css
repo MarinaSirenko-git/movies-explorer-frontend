@@ -1,0 +1,147 @@
+/* About-project */
+
+.about-project {
+  max-width: 1140px;
+  width: 100%;
+  padding-top: 70px;
+  padding-bottom: 110px;
+}
+
+@media screen and (max-width: 768px) {
+  .about-project {
+    padding-bottom: 90px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .main__space_type_project {
+    padding-top: 60px;
+    padding-bottom: 58px;
+  }
+}
+
+/* List */
+
+.about-project__list {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 110px 0;
+}
+
+@media screen and (max-width: 768px) {
+  .about-project__list {
+    margin: 0 0 90px 0;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .about-project__list {
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr;
+    margin: 0 0 60px 0;
+    gap: 56px;
+  }
+}
+
+/* Subtitle */
+
+.about-project__subtitle {
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  color: #000;
+  margin: 0 0 26px 0;
+}
+
+@media screen and (max-width: 580px) {
+  .about-project__subtitle {
+    font-size: 18px;
+    margin: 0 0 16px 0;
+  }
+}
+
+/* Text */
+
+.about-project__text {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.57em;
+  color: #000;
+  margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .about-project__text {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .about-project__text {
+    font-size: 11px;
+  }
+}
+
+/* Time-line */
+
+.about-project__time-line {
+  display: grid;
+  grid-template-rows: 36px 36px;
+  grid-template-columns: 1fr 4fr;
+}
+
+@media screen and (max-width: 580px) {
+  .about-project__time-line {
+    grid-template-columns: 1fr 2fr;
+  }
+}
+
+/* Time */
+
+.about-project__time {
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 580px) {
+  .about-project__time {
+    font-size: 11px;
+  }
+}
+
+.about-project__time_type_short {
+  background-color: #3456f3;
+  color: #ffffff;
+}
+
+.about-project__time_type_long {
+  background-color: #f2f2f2;
+  color: #000;
+}
+
+/* Task */
+
+.about-project__task {
+  font-size: 14px;
+  font-weight: 500;
+  color: #a0a0a0;
+  margin: 8px 0 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 580px) {
+  .about-project__task {
+    font-size: 11px;
+    margin: 0;
+  }
+}

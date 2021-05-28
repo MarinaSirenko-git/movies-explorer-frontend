@@ -1,0 +1,31 @@
+/* Movies */
+
+.movies {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 0;
+  background-color: #fafafa;
+}
+
+/* Content */
+
+.movies__content {
+  max-width: calc(1140px + 70px * 2);
+  width: 100%;
+  flex: 1 0 auto;
+  padding: 0 70px;
+}
+
+@media screen and (max-width: 768px) {
+  .movies__content {
+    padding: 0 30px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .movies__content {
+    padding: 0 10px;
+  }
+}
