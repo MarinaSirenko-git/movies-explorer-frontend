@@ -11,7 +11,7 @@ function MoviesCard() {
         location.pathname === '/saved-movies' ? 'movies-card_type_saved' : 'movies-card_type_main'
       }`}
     >
-      <button className="movies-card__save-btn" type="button">
+      <button className="movies-card__save-btn movies-card__save-btn_saved" type="button">
         Сохранить
       </button>
       <button
