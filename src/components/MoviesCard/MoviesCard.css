@@ -53,8 +53,7 @@
 
 .movies-card__img {
   width: 100%;
-  max-width: 360px;
-  max-height: 201px;
+  height: 201px;
   display: block;
   object-fit: cover;
   object-position: center;
@@ -63,7 +62,7 @@
 
 @media screen and (max-width: 1024px) {
   .movies-card__img {
-    max-width: 339px;
+    width: 100%;
   }
 }
 

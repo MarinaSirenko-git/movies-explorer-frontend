@@ -1,0 +1,11 @@
+/* Alt-text */
+
+.alt-text {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.25em;
+  color: #a0a0a0;
+  text-align: center;
+  margin: 70px auto 0;
+  max-width: 460px;
+}

@@ -1,15 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm() {
+function SearchForm({ onGetMovies }) {
+  const [key, setKey] = useState('');
+
+  const handleChangeKey = (e) => {
+    setKey(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onGetMovies(key);
+  };
+
   return (
     <div className="search">
-      <form className="search__form" name="q-form" role="search">
+      <form className="search__form" name="q-form" role="search" onSubmit={handleSubmit}>
         <span className="search__icon" />
         <label className="search__label search__label_type_input" htmlFor="search">
           <input
             className="search__input"
+            value={key}
+            onChange={handleChangeKey}
             type="search"
             name="q"
             aria-label="Поле поиска по каталогу фильмов"
@@ -26,5 +40,9 @@ function SearchForm() {
     </div>
   );
 }
+
+SearchForm.propTypes = {
+  onGetMovies: PropTypes.func.isRequired,
+};
 
 export default SearchForm;
