@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Movies.css';
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
@@ -7,6 +7,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import getMovies from '../../utils/MoviesApi';
 import AltText from '../AltText/AltText';
+import MoviesButton from '../MoviesButton/MoviesButton';
 import { DEFAULT_TEXT, SERVER_ERR_TEXT, NORESULT_TEXT } from '../../utils/consts';
 
 function Movies() {
@@ -14,6 +15,15 @@ function Movies() {
   const [isMessage, setIsMessage] = useState(DEFAULT_TEXT);
   const [isLoading, setIsLoading] = useState(false);
   const [movies, setMovies] = useState([]);
+  const [isButton, setIsButton] = useState(false);
+
+  useEffect(() => {
+    const searchMovies = localStorage.getItem('movies');
+    if (searchMovies) {
+      setIsMessage(null);
+      setMovies(JSON.parse(searchMovies));
+    }
+  }, []);
 
   const handleGetMovies = (value) => {
     setIsShow(false);
@@ -38,6 +48,8 @@ function Movies() {
           setIsMessage(NORESULT_TEXT);
         } else {
           setMovies(moviesArr);
+          setIsButton(true);
+          localStorage.setItem('movies', JSON.stringify(moviesArr));
         }
       })
       .catch(() => {
@@ -53,8 +65,9 @@ function Movies() {
       <Header loggedIn />
       <main className="movies__content">
         <SearchForm onGetMovies={handleGetMovies} />
-        {isShow ? <AltText title={isMessage} /> : ''}
+        {isShow ? <AltText title={isMessage} /> : null}
         {isLoading ? <Preloader /> : <MoviesCardList movies={movies} />}
+        {isButton ? <MoviesButton /> : null}
       </main>
       <Footer />
     </div>

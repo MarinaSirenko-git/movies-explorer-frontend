@@ -1,21 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 function MoviesCardList({ movies }) {
-  const [isButton, setIsButton] = useState(true);
-  const [filterMovies, setFilterMovies] = useState([]);
-
-  useEffect(() => {
-    setFilterMovies(movies);
-    setIsButton(true);
-  }, [movies]);
-
   return (
     <section className="cards-list">
       <ul className="cards-list__list">
-        {filterMovies.map((movie) => (
+        {movies.map((movie) => (
           <MoviesCard
             key={movie._id}
             title={movie.nameRU}
@@ -25,11 +17,6 @@ function MoviesCardList({ movies }) {
           />
         ))}
       </ul>
-      {isButton ? null : (
-        <button className="cards-list__btn" type="button">
-          Ещё
-        </button>
-      )}
     </section>
   );
 }
