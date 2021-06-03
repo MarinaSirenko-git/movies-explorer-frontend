@@ -1,12 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './MoviesButton.css';
 
-function MoviesButton() {
+function MoviesButton({ onChangeMovies }) {
+  const handleClick = () => {
+    onChangeMovies([]);
+  };
+
   return (
-    <button className="cards-list__btn" type="button">
+    <button className="movies-btn" type="button" onClick={handleClick}>
       Ещё
     </button>
   );
 }
+
+MoviesButton.propTypes = {
+  onChangeMovies: PropTypes.func.isRequired,
+};
 
 export default MoviesButton;

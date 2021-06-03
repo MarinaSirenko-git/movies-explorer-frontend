@@ -1,7 +1,7 @@
 /* Btn */
 
-.cards-list__btn {
-  margin-top: 50px;
+.movies-btn {
+  margin: 50px auto 80px;
   display: block;
   max-width: 320px;
   width: 100%;
@@ -16,13 +16,13 @@
   transition: all .5s;;
 }
 
-.cards-list__btn:hover {
+.movies-btn:hover {
   background-color: #3456F3;
   color: #fff;
 }
 
 @media screen and (max-width: 580px) {
-  .cards-list__btn {
+  .movies-btn {
     max-width: 240px;
   }
 }
