@@ -7,7 +7,11 @@ function AltText({ title }) {
 }
 
 AltText.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
+};
+
+AltText.defaultProps = {
+  title: '',
 };
 
 export default AltText;
