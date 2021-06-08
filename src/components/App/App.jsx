@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import './App.css';
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import Main from '../Main/Main';
@@ -27,7 +27,7 @@ function App() {
         } else {
           setLoggedIn(true);
           history.push('/movies');
-          setCurrentUser({});
+          setCurrentUser(res);
         }
       })
       .catch((e) => console.log(e));
@@ -43,6 +43,24 @@ function App() {
       }
     });
   };
+
+  const tokenCheck = useCallback(() => {
+    api
+      .getUser()
+      .then((res) => {
+        if (res.message) {
+          throw new Error('Требуется авторизация');
+        } else {
+          setLoggedIn(true);
+          history.push('/movies');
+        }
+      })
+      .catch(() => history.push('/signin'));
+  }, [history]);
+
+  useEffect(() => {
+    tokenCheck();
+  }, [tokenCheck]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

@@ -3,8 +3,10 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const ProtectedRoute = ({ component: Component, loggedIn, ...props }) => {
-  return <Route>{() => (loggedIn ? <Component {...props} /> : <Redirect to="./signup" />)}</Route>;
+const ProtectedRoute = ({ component: Component, ...props }) => {
+  return (
+    <Route>{() => (props.loggedIn ? <Component {...props} /> : <Redirect to="./signup" />)}</Route>
+  );
 };
 
 ProtectedRoute.propTypes = {

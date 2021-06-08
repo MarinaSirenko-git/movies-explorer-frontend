@@ -1,3 +1,10 @@
+/* Wrap */
+
+.form__wrap {
+  position: relative;
+  margin-bottom: 24px;
+}
+
 /* Label */
 
 .form__label {
@@ -14,9 +21,24 @@
   width: 100%;
   height: auto;
   min-height: 32px;
-  margin-bottom: 24px;
   padding: 0;
   font-size: 14px;
   font-weight: 500;
   background-color: #fafafa;
+}
+
+.form__input_error {
+  color: #EE3465;
+}
+
+/* Error */
+
+.form__error {
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.3em;
+  color: #EE3465;
+  max-width: 100%;
+  display: block;
+  margin-top: 6px;
 }

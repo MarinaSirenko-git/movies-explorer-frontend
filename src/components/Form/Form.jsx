@@ -9,7 +9,7 @@ function Form({ onSubmit, children }) {
   return (
     <form className="form" onSubmit={onSubmit}>
       {children}
-      <button className="form__btn" type="submit">
+      <button className="form__btn" type="submit" disabled>
         {location.pathname === '/signup' ? 'Зарегистрироваться' : 'Войти'}
       </button>
     </form>

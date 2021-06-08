@@ -1,4 +1,5 @@
 import React, { useEffect, useReducer } from 'react';
+import PropTypes from 'prop-types';
 import './Movies.css';
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
@@ -67,7 +68,7 @@ function reducer(state, action) {
   }
 }
 
-function Movies() {
+function Movies({ loggedIn }) {
   const [data, dispatch] = useReducer(
     reducer,
     {
@@ -148,7 +149,7 @@ function Movies() {
 
   return (
     <div className="movies">
-      <Header loggedIn />
+      <Header loggedIn={loggedIn} />
       <main className="movies__content">
         <SearchForm onGetMovies={handleGetMovies} />
         {data.isShow ? <AltText title={data.isMessage} /> : null}
@@ -159,5 +160,9 @@ function Movies() {
     </div>
   );
 }
+
+Movies.propTypes = {
+  loggedIn: PropTypes.bool.isRequired,
+};
 
 export default Movies;
