@@ -96,6 +96,18 @@
   border-bottom: none;
 }
 
+/* Error */
+
+.profile__error {
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.3em;
+  color: #EE3465;
+  max-width: 100%;
+  display: block;
+  margin-top: 6px;
+}
+
 /* Btn */
 
 .profile__btn {
@@ -113,6 +125,16 @@
 .profile__btn_type_edit {
   color: #000;
   margin-top: 200px;
+}
+
+.profile__btn_type_edit:disabled {
+  color: #C4C4C4;
+	cursor: default;
+	pointer-events: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  user-select: none;
 }
 
 @media screen and (max-width: 568px) and (max-height: 320px) {

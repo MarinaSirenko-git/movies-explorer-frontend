@@ -1,52 +1,79 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
+import { NAME_REGEX, EMAIL_REGEX } from '../utils/consts';
 
 function useFormWithValidation(initial) {
-  const [inputValue, setInputValue] = useState(initial);
-  const [error, setError] = useState(null);
+  const [data, setData] = useState(initial);
+  const [nameError, setNameError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const [isValid, setIsValid] = useState(false);
 
-  const onChange = (event) => {
+  useEffect(() => {
+    if (
+      nameError ||
+      emailError ||
+      passwordError ||
+      data.name === '' ||
+      data.email === '' ||
+      data.password === ''
+    ) {
+      setIsValid(false);
+    } else {
+      setIsValid(true);
+    }
+  }, [data, emailError, nameError, passwordError]);
+
+  const handleChange = (event) => {
     const { value } = event.target;
     const { name } = event.target;
-    setInputValue(value);
+    setData((state) => ({
+      ...state,
+      [name]: value,
+    }));
     switch (name) {
       case 'name':
-        if (value.length < 2 || value.length > 30) {
-          setError('Имя должно быть не меньше 2-х и не больше 30 символов');
+        if (value === '') {
+          setNameError('Поле не может быть пустым');
+        } else if (value.length === 1 || value.length > 30 || !NAME_REGEX.test(value)) {
+          setNameError(
+            'Имя может содержать латиницу, кириллицу, пробел и дефис, должно быть от 2-х и до 30 символов'
+          );
         } else {
-          setError(null);
+          setNameError('');
         }
         break;
       case 'email':
-        if (value.length < 2 || value.length > 30) {
-          setError('Имя должно быть не меньше 2-х и не больше 30 символов');
+        if (value === '') {
+          setEmailError('Поле не может быть пустым');
+        } else if (!EMAIL_REGEX.test(value)) {
+          setEmailError('Неверно указан email');
         } else {
-          setError(null);
+          setEmailError('');
         }
         break;
       case 'password':
-        if (value.length < 6) {
-          setError('Пароль должен содержать не менее 6 символов');
+        if (value === '') {
+          setPasswordError('Поле не может быть пустым');
         } else {
-          setError(null);
+          setPasswordError('');
         }
         break;
       default:
-        setError(null);
+        setNameError('');
+        setEmailError('');
+        setPasswordError('');
     }
-    return value;
   };
 
   const resetForm = useCallback(
-    (newValue = initial, newError = null, newIsValid = false) => {
-      setInputValue(newValue);
-      setError(newError);
+    (newValue = initial, newIsValid = false) => {
+      setData(newValue);
       setIsValid(newIsValid);
     },
-    [initial, setInputValue, setError, setIsValid]
+    [initial, setData, setIsValid]
   );
 
-  return { inputValue, onChange, error, isValid, resetForm };
+  return { data, handleChange, nameError, emailError, passwordError, isValid, resetForm };
 }
 
 export default useFormWithValidation;

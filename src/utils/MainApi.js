@@ -28,7 +28,7 @@ export const createMovie = (data) => {
       duration: data.duration,
       year: data.year,
       description: data.description,
-      image: data.image.url,
+      image: data.image,
       trailer: data.trailer,
       thumbnail: data.thumbnail,
       movieId: data.movieId,
@@ -109,7 +109,7 @@ export const updateProfile = (data) => {
     },
     body: JSON.stringify({
       name: data.name,
-      about: data.email,
+      email: data.email,
     }),
   }).then((res) => res.json());
 };

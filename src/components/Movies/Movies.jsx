@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import PropTypes from 'prop-types';
 import './Movies.css';
 import Header from '../Header/Header';
@@ -69,6 +69,7 @@ function reducer(state, action) {
 }
 
 function Movies({ loggedIn }) {
+  const [isBeatFilm, setIsBitFilm] = useState(false);
   const [data, dispatch] = useReducer(
     reducer,
     {
@@ -84,6 +85,7 @@ function Movies({ loggedIn }) {
   useEffect(() => {
     const searchMovies = localStorage.getItem('movies');
     if (searchMovies) {
+      setIsBitFilm(true);
       dispatch({
         type: 'checkLocalStorage',
         text: null,
@@ -121,6 +123,7 @@ function Movies({ loggedIn }) {
           localStorage.removeItem('movies');
         } else {
           localStorage.setItem('movies', JSON.stringify(moviesArr));
+          setIsBitFilm(true);
           if (MCL_4K.matches) {
             dispatch({ type: 'fetch', payload: moviesArr.slice(0, 12), isButton: true });
           } else if (MCL_TABLET.matches) {
@@ -153,7 +156,11 @@ function Movies({ loggedIn }) {
       <main className="movies__content">
         <SearchForm onGetMovies={handleGetMovies} />
         {data.isShow ? <AltText title={data.isMessage} /> : null}
-        {data.isLoading ? <Preloader /> : <MoviesCardList movies={data.movies} />}
+        {data.isLoading ? (
+          <Preloader />
+        ) : (
+          <MoviesCardList movies={data.movies} isBeatFilm={isBeatFilm} />
+        )}
         {data.isButton ? <MoviesButton onChangeMovies={handleChangeMovies} /> : null}
       </main>
       <Footer />

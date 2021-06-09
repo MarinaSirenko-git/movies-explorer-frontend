@@ -1,20 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './PasswordInput.css';
-import useValidate from '../../hooks/useValidate';
 
-function PasswordInput({ password, onChangePassword }) {
-  const { inputValue, onChange, error } = useValidate(password);
-  onChangePassword(inputValue);
-
+function PasswordInput({ password, onChangePassword, error }) {
   return (
     <div className="form__wrap">
-      <label className="form__label" htmlFor="password">
+      <label className="form__label" htmlFor="password-input">
         Пароль
         <input
           className={`form__input ${error ? 'form__input_error' : ''}`}
-          value={inputValue}
-          onChange={onChange}
+          id="password-input"
+          value={password}
+          onChange={onChangePassword}
           name="password"
           type="password"
           required
@@ -28,6 +25,7 @@ function PasswordInput({ password, onChangePassword }) {
 PasswordInput.propTypes = {
   password: PropTypes.string.isRequired,
   onChangePassword: PropTypes.func.isRequired,
+  error: PropTypes.string.isRequired,
 };
 
 export default PasswordInput;

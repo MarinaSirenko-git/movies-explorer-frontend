@@ -1,20 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './NameInput.css';
-import useValidate from '../../hooks/useValidate';
 
-function NameInput({ name, onChangeName }) {
-  const { inputValue, onChange, error } = useValidate(name);
-  onChangeName(inputValue);
-
+function NameInput({ name, onChangeName, error }) {
   return (
     <div className="form__wrap">
-      <label className="form__label" htmlFor="name">
+      <label className="form__label" htmlFor="name-input">
         Имя
         <input
           className={`form__input ${error ? 'form__input_error' : ''}`}
-          value={inputValue}
-          onChange={onChange}
+          id="name-input"
+          value={name}
+          onChange={onChangeName}
           name="name"
           type="name"
           required
@@ -28,6 +25,7 @@ function NameInput({ name, onChangeName }) {
 NameInput.propTypes = {
   name: PropTypes.string.isRequired,
   onChangeName: PropTypes.func.isRequired,
+  error: PropTypes.string.isRequired,
 };
 
 export default NameInput;

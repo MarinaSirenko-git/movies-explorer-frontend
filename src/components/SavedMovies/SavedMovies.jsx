@@ -34,7 +34,7 @@ function SavedMovies() {
       <main className="saved-movies__content">
         <SearchForm />
         {isText ? <AltText title={NOSAVE_TEXT} /> : null}
-        <MoviesCardList movies={savedMovies} />
+        <MoviesCardList movies={savedMovies} isBeatFilm={false} />
       </main>
       <Footer />
     </div>

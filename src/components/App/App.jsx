@@ -17,31 +17,42 @@ function App() {
   const history = useHistory();
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
+  const [queryError, setQueryError] = useState('');
 
   const handleRegister = ({ name, email, password }) => {
     api
       .register(name, email, password)
       .then((res) => {
         if (!res) {
-          throw new Error('Ошибка при регистрации');
+          setQueryError('Ошибка при регистрации. Повторите попытку позже');
+          throw new Error('Ошибка при регистрации. Повторите попытку позже');
+        } else if (res.message) {
+          setQueryError(res.message);
+          throw new Error(res.message);
         } else {
           setLoggedIn(true);
           history.push('/movies');
-          setCurrentUser(res);
         }
       })
       .catch((e) => console.log(e));
   };
 
   const handleLogin = ({ email, password }) => {
-    api.authorize(email, password).then((res) => {
-      if (!res) {
-        throw new Error('Ошибка при авторизации');
-      } else {
-        setLoggedIn(true);
-        history.push('/movies');
-      }
-    });
+    api
+      .authorize(email, password)
+      .then((res) => {
+        if (!res) {
+          setQueryError('Ошибка при авторизации. Повторите попытку позже');
+          throw new Error('Ошибка при авторизации. Повторите попытку позже');
+        } else if (res.message) {
+          setQueryError(res.message);
+          throw new Error(res.message);
+        } else {
+          setLoggedIn(true);
+          history.push('/movies');
+        }
+      })
+      .catch((e) => console.log(e));
   };
 
   const tokenCheck = useCallback(() => {
@@ -51,31 +62,76 @@ function App() {
         if (res.message) {
           throw new Error('Требуется авторизация');
         } else {
+          setQueryError('');
           setLoggedIn(true);
+          setCurrentUser(res);
           history.push('/movies');
         }
       })
-      .catch(() => history.push('/signin'));
+      .catch((e) => {
+        console.log(e);
+        history.push('/signin');
+      });
   }, [history]);
 
   useEffect(() => {
     tokenCheck();
   }, [tokenCheck]);
 
+  const handleUpdateUser = (data) => {
+    api
+      .updateProfile(data)
+      .then((res) => {
+        if (res.message) {
+          setQueryError(res.message);
+          throw new Error(res.message);
+        } else {
+          setQueryError('');
+          setCurrentUser(res);
+        }
+      })
+      .catch((e) => console.log(e));
+  };
+
+  const handleLogout = () => {
+    api
+      .logout()
+      .then((res) => {
+        if (res.message) {
+          throw new Error(res.message);
+        } else {
+          setCurrentUser({});
+          setLoggedIn(false);
+          history.push('/signin');
+        }
+      })
+      .catch((e) => console.log(e));
+  };
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="app">
         <Switch>
           <Route path="/signup">
-            <Register onRegister={handleRegister} />
+            <Register
+              onRegister={handleRegister}
+              queryError={queryError}
+              setQueryError={setQueryError}
+            />
           </Route>
           <Route path="/signin">
-            <Login onLogin={handleLogin} />
+            <Login onLogin={handleLogin} queryError={queryError} setQueryError={setQueryError} />
           </Route>
           <ProtectedRoute path="/" exact loggedIn={loggedIn} component={Main} />
           <ProtectedRoute path="/movies" loggedIn={loggedIn} component={Movies} />
           <ProtectedRoute path="/saved-movies" loggedIn={loggedIn} component={SavedMovies} />
-          <ProtectedRoute path="/profile" loggedIn={loggedIn} component={Profile} />
+          <ProtectedRoute
+            path="/profile"
+            loggedIn={loggedIn}
+            component={Profile}
+            onUpdate={handleUpdateUser}
+            onLogout={handleLogout}
+          />
           <ProtectedRoute path="*" loggedIn={loggedIn} component={NotFound} />
           <Route path="/">{loggedIn ? <Redirect to="/movies" /> : <Redirect to="/signin" />}</Route>
         </Switch>

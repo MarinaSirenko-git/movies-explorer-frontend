@@ -1,35 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import StartPage from '../StartPage/StartPage';
 import Form from '../Form/Form';
 import EmailInput from '../EmailInput/EmailInput';
 import PasswordInput from '../PasswordInput/PasswordInput';
+import useValidate from '../../hooks/useValidate';
 
-function Login({ onLogin }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+function Login({ onLogin, queryError, setQueryError }) {
+  useEffect(() => {
+    setQueryError('');
+  }, []);
 
-  const handleChangeEmail = (data) => {
-    setEmail(data);
+  const loginData = {
+    email: '',
+    password: '',
   };
 
-  const handleChangePassword = (data) => {
-    setPassword(data);
-  };
+  const { data, handleChange, emailError, passwordError, isValid, resetForm } = useValidate(
+    loginData
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onLogin({
-      email,
-      password,
-    });
+    onLogin(data);
+    resetForm();
   };
 
   return (
     <StartPage>
-      <Form onSubmit={handleSubmit}>
-        <EmailInput email={email} onChangeEmail={handleChangeEmail} />
-        <PasswordInput password={password} onChangePassword={handleChangePassword} />
+      <Form onSubmit={handleSubmit} isValid={isValid} queryError={queryError}>
+        <EmailInput email={data.email} onChangeEmail={handleChange} error={emailError} />
+        <PasswordInput
+          password={data.password}
+          onChangePassword={handleChange}
+          error={passwordError}
+        />
       </Form>
     </StartPage>
   );
@@ -37,6 +42,8 @@ function Login({ onLogin }) {
 
 Login.propTypes = {
   onLogin: PropTypes.func.isRequired,
+  queryError: PropTypes.string.isRequired,
+  setQueryError: PropTypes.func.isRequired,
 };
 
 export default Login;

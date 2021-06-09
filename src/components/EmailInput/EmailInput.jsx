@@ -1,20 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './EmailInput.css';
-import useValidate from '../../hooks/useValidate';
 
-function EmailInput({ email, onChangeEmail }) {
-  const { inputValue, onChange, error } = useValidate(email);
-  onChangeEmail(inputValue);
-
+function EmailInput({ email, onChangeEmail, error }) {
   return (
     <div className="form__wrap">
-      <label className="form__label" htmlFor="email">
+      <label className="form__label" htmlFor="email-input">
         E-mail
         <input
           className={`form__input ${error ? 'form__input_error' : ''}`}
-          value={inputValue}
-          onChange={onChange}
+          id="email-input"
+          value={email}
+          onChange={onChangeEmail}
           name="email"
           type="email"
           required
@@ -28,6 +25,7 @@ function EmailInput({ email, onChangeEmail }) {
 EmailInput.propTypes = {
   email: PropTypes.string.isRequired,
   onChangeEmail: PropTypes.func.isRequired,
+  error: PropTypes.string.isRequired,
 };
 
 export default EmailInput;
