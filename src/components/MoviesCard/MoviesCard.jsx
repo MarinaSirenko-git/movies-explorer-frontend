@@ -4,8 +4,10 @@ import { useLocation } from 'react-router-dom';
 import './MoviesCard.css';
 import { BASE_URL } from '../../utils/consts';
 import * as api from '../../utils/MainApi';
+import convertMinutes from '../../utils/utils';
 
 function MoviesCard({
+  _id,
   country,
   director,
   duration,
@@ -17,6 +19,7 @@ function MoviesCard({
   movieId,
   nameRU,
   nameEN,
+  onMovieDelete,
 }) {
   const location = useLocation();
   const [isSaved, setIsSaved] = useState(false);
@@ -48,7 +51,7 @@ function MoviesCard({
   };
 
   const handleDeleteClick = () => {
-    api.deleteMovie();
+    onMovieDelete(_id);
   };
 
   return (
@@ -79,7 +82,7 @@ function MoviesCard({
           />
           <div className="movies-card__text">
             <h2 className="movies-card__title">{nameRU}</h2>
-            <p className="movies-card__duration">{duration}</p>
+            <p className="movies-card__duration">{convertMinutes(duration)}</p>
           </div>
         </a>
       </div>
@@ -88,6 +91,7 @@ function MoviesCard({
 }
 
 MoviesCard.propTypes = {
+  _id: PropTypes.string.isRequired,
   nameRU: PropTypes.string.isRequired,
   trailer: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
@@ -99,6 +103,7 @@ MoviesCard.propTypes = {
   thumbnail: PropTypes.string.isRequired,
   movieId: PropTypes.number.isRequired,
   nameEN: PropTypes.string.isRequired,
+  onMovieDelete: PropTypes.func.isRequired,
 };
 
 export default MoviesCard;

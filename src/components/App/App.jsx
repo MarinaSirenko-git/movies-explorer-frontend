@@ -31,6 +31,7 @@ function App() {
           throw new Error(res.message);
         } else {
           setLoggedIn(true);
+          setCurrentUser(res);
           history.push('/movies');
         }
       })

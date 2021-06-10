@@ -17,6 +17,16 @@ import {
   MCL_TABLET,
 } from '../../utils/consts';
 
+function setMovie(dispatch, movie) {
+  if (MCL_4K.matches) {
+    return dispatch({ type: 'fetch', payload: movie.slice(0, 12), isButton: true });
+  }
+  if (MCL_TABLET.matches) {
+    return dispatch({ type: 'fetch', payload: movie.slice(0, 8), isButton: true });
+  }
+  return dispatch({ type: 'fetch', payload: movie.slice(0, 5), isButton: true });
+}
+
 function init(state) {
   return { ...state };
 }
@@ -70,6 +80,7 @@ function reducer(state, action) {
 
 function Movies({ loggedIn }) {
   const [isBeatFilm, setIsBitFilm] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
   const [data, dispatch] = useReducer(
     reducer,
     {
@@ -99,6 +110,7 @@ function Movies({ loggedIn }) {
 
   const handleGetMovies = (value) => {
     dispatch({ type: 'beforeFetch', isShow: false, isLoading: true, isButton: false });
+    setIsBitFilm(true);
     getMovies()
       .then((res) => {
         const regex = new RegExp(value, 'i');
@@ -121,9 +133,11 @@ function Movies({ loggedIn }) {
             text: NORESULT_TEXT,
           });
           localStorage.removeItem('movies');
+        } else if (isChecked) {
+          const shortFilmList = moviesArr.filter((item) => item.duration <= 40);
+          localStorage.setItem('movies', JSON.stringify(shortFilmList));
         } else {
           localStorage.setItem('movies', JSON.stringify(moviesArr));
-          setIsBitFilm(true);
           if (MCL_4K.matches) {
             dispatch({ type: 'fetch', payload: moviesArr.slice(0, 12), isButton: true });
           } else if (MCL_TABLET.matches) {
@@ -150,11 +164,15 @@ function Movies({ loggedIn }) {
     dispatch({ type: 'fetch', payload: [], isButton: false });
   };
 
+  const changeMovieList = () => {
+    console.log('Привет');
+  };
+
   return (
     <div className="movies">
       <Header loggedIn={loggedIn} />
       <main className="movies__content">
-        <SearchForm onGetMovies={handleGetMovies} />
+        <SearchForm onGetMovies={handleGetMovies} changeMovieList={changeMovieList} />
         {data.isShow ? <AltText title={data.isMessage} /> : null}
         {data.isLoading ? (
           <Preloader />

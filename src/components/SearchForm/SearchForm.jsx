@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm({ onGetMovies }) {
+function SearchForm({ onGetMovies, changeMovieList }) {
   const [key, setKey] = useState('');
 
   const handleChangeKey = (e) => {
@@ -34,7 +34,7 @@ function SearchForm({ onGetMovies }) {
         </label>
         <button className="search__btn" aria-label="Найти" type="submit" />
         <div className="search__checkbox">
-          <FilterCheckbox />
+          <FilterCheckbox changeMovieList={changeMovieList} />
         </div>
       </form>
     </div>
@@ -43,6 +43,7 @@ function SearchForm({ onGetMovies }) {
 
 SearchForm.propTypes = {
   onGetMovies: PropTypes.func.isRequired,
+  changeMovieList: PropTypes.func.isRequired,
 };
 
 export default SearchForm;
