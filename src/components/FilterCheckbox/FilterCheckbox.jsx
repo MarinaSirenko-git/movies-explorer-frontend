@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './FilterCheckbox.css';
 
-function FilterCheckbox({ changeMovieList }) {
+function FilterCheckbox({ onChange }) {
   return (
     <label className="filter-checkbox" htmlFor="checkbox">
       <input
         className="filter-checkbox__input"
-        onClick={changeMovieList}
+        defaultChecked={false}
+        onChange={onChange}
         type="checkbox"
         name="short-film"
         id="checkbox"
@@ -19,7 +20,7 @@ function FilterCheckbox({ changeMovieList }) {
 }
 
 FilterCheckbox.propTypes = {
-  changeMovieList: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default FilterCheckbox;

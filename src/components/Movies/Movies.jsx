@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import './Movies.css';
 import Header from '../Header/Header';
@@ -17,169 +17,196 @@ import {
   MCL_TABLET,
 } from '../../utils/consts';
 
-function setMovie(dispatch, movie) {
-  if (MCL_4K.matches) {
-    return dispatch({ type: 'fetch', payload: movie.slice(0, 12), isButton: true });
+function filterMovies(arr, value, isChecked) {
+  console.log(isChecked);
+  const regex = new RegExp(value, 'i');
+  const lengthFilm = arr.filter((item) => {
+    if (
+      (regex.test(item.nameRU) && item.image.url !== null) ||
+      (regex.test(item.director) && item.image.url !== null) ||
+      (regex.test(item.year) && item.image.url !== null) ||
+      (regex.test(item.country) && item.image.url !== null)
+    ) {
+      return item;
+    }
+    return null;
+  });
+  if (isChecked === true) {
+    return lengthFilm.filter((item) => item.duration <= 40);
   }
-  if (MCL_TABLET.matches) {
-    return dispatch({ type: 'fetch', payload: movie.slice(0, 8), isButton: true });
-  }
-  return dispatch({ type: 'fetch', payload: movie.slice(0, 5), isButton: true });
+  return lengthFilm;
 }
 
-function init(state) {
-  return { ...state };
+function countUploadedMovies() {
+  if (MCL_4K.matches) {
+    return 3;
+  }
+  if (MCL_TABLET.matches) {
+    return 2;
+  }
+  return 2;
+}
+
+function getSliceMovies(movie, n) {
+  if (MCL_4K.matches) {
+    return movie.slice(0, 12 + n);
+  }
+  if (MCL_TABLET.matches) {
+    return movie.slice(0, 8 + n);
+  }
+  return movie.slice(0, 5 + n);
 }
 
 function reducer(state, action) {
   switch (action.type) {
     case 'checkLocalStorage':
+    case 'fetch': {
+      const { isMessage, isShow, movies, count } = action;
       return {
         ...state,
-        isMessage: action.text,
-        movies: action.payload,
-        isButton: action.isButton,
+        isMessage,
+        isShow,
+        movies,
+        sliceMovies: getSliceMovies(movies, count),
+        isButton: movies.length > getSliceMovies(movies, count).length,
       };
-    case 'beforeFetch':
+    }
+    case 'beforeFetch': {
+      const { isShow, isLoading, isButton } = action;
       return {
         ...state,
-        isShow: action.isShow,
-        isLoading: action.isLoading,
-        isButton: action.isButton,
+        isShow,
+        isLoading,
+        isButton,
       };
+    }
     case 'noFaundResult':
+    case 'serverError': {
+      const { isMessage, isShow, isRender } = action;
       return {
         ...state,
-        movies: action.payload,
-        isShow: action.isShow,
-        isMessage: action.text,
+        isMessage,
+        isShow,
+        isRender,
       };
-    case 'fetch':
+    }
+    case 'increment': {
+      const { movies, count } = action;
       return {
         ...state,
-        movies: action.payload,
-        isButton: action.isButton,
+        movies,
+        sliceMovies: getSliceMovies(movies, count),
+        isButton: movies.length > getSliceMovies(movies, count).length,
+        count,
       };
-    case 'error':
+    }
+    case 'finally': {
+      const { isLoading } = action;
       return {
         ...state,
-        movies: action.payload,
-        isShow: action.isShow,
-        isMessage: action.text,
-        isButton: action.isButton,
+        isLoading,
       };
-    case 'finally':
+    }
+    default: {
+      const { movies } = action;
       return {
         ...state,
-        isLoading: action.isLoading,
+        movies,
       };
-    default:
-      return state;
+    }
   }
 }
 
 function Movies({ loggedIn }) {
-  const [isBeatFilm, setIsBitFilm] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
-  const [data, dispatch] = useReducer(
-    reducer,
-    {
-      isShow: true,
-      isMessage: DEFAULT_TEXT,
-      isLoading: false,
-      isButton: false,
-      movies: [],
-    },
-    init
-  );
+  const [data, dispatch] = useReducer(reducer, {
+    isShow: true,
+    isMessage: DEFAULT_TEXT,
+    isLoading: false,
+    isButton: false,
+    isBeatFilm: true,
+    isRender: true,
+    movies: [],
+    sliceMovies: [],
+    count: 0,
+  });
 
   useEffect(() => {
-    const searchMovies = localStorage.getItem('movies');
+    const searchMovies = JSON.parse(localStorage.getItem('movies'));
     if (searchMovies) {
-      setIsBitFilm(true);
       dispatch({
         type: 'checkLocalStorage',
-        text: null,
-        payload: JSON.parse(searchMovies),
-        isButton: true,
+        isMessage: '',
+        isShow: false,
+        movies: searchMovies,
+        sliceMovies: searchMovies,
+        isButton: searchMovies,
+        count: data.count,
       });
     } else {
       dispatch({});
     }
   }, []);
 
-  const handleGetMovies = (value) => {
+  const handleGetMovies = (value, isChecked) => {
     dispatch({ type: 'beforeFetch', isShow: false, isLoading: true, isButton: false });
-    setIsBitFilm(true);
     getMovies()
       .then((res) => {
-        const regex = new RegExp(value, 'i');
-        const moviesArr = res.filter((item) => {
-          if (
-            (regex.test(item.nameRU) && item.image.url !== null) ||
-            (regex.test(item.director) && item.image.url !== null) ||
-            (regex.test(item.year) && item.image.url !== null) ||
-            (regex.test(item.country) && item.image.url !== null)
-          ) {
-            return item;
-          }
-          return null;
-        });
-        if (moviesArr.length === 0) {
+        const sortedMovies = filterMovies(res, value, isChecked);
+        if (sortedMovies.length === 0) {
+          localStorage.removeItem('movies');
           dispatch({
             type: 'noFaundResult',
-            payload: [],
+            isMessage: NORESULT_TEXT,
             isShow: true,
-            text: NORESULT_TEXT,
+            isRender: true,
           });
-          localStorage.removeItem('movies');
-        } else if (isChecked) {
-          const shortFilmList = moviesArr.filter((item) => item.duration <= 40);
-          localStorage.setItem('movies', JSON.stringify(shortFilmList));
         } else {
-          localStorage.setItem('movies', JSON.stringify(moviesArr));
-          if (MCL_4K.matches) {
-            dispatch({ type: 'fetch', payload: moviesArr.slice(0, 12), isButton: true });
-          } else if (MCL_TABLET.matches) {
-            dispatch({ type: 'fetch', payload: moviesArr.slice(0, 8), isButton: true });
-          } else {
-            dispatch({ type: 'fetch', payload: moviesArr.slice(0, 5), isButton: true });
-          }
+          localStorage.setItem('movies', JSON.stringify(sortedMovies));
+          dispatch({
+            type: 'fetch',
+            isMessage: '',
+            isShow: false,
+            movies: sortedMovies,
+            sliceMovies: sortedMovies,
+            isButton: sortedMovies,
+            count: data.count,
+          });
         }
       })
       .catch(() => {
-        dispatch({
-          type: 'error',
-          payload: [],
-          isShow: true,
-          text: SERVER_ERR_TEXT,
-          isButton: false,
-        });
         localStorage.removeItem('movies');
+        dispatch({
+          type: 'serverError',
+          isMessage: SERVER_ERR_TEXT,
+          isShow: true,
+          isRender: true,
+        });
       })
       .finally(() => dispatch({ type: 'finally', isLoading: false }));
   };
 
   const handleChangeMovies = () => {
-    dispatch({ type: 'fetch', payload: [], isButton: false });
-  };
-
-  const changeMovieList = () => {
-    console.log('Привет');
+    dispatch({
+      type: 'increment',
+      movies: data.movies,
+      sliceMovies: data.movies,
+      isButton: data.movies,
+      count: data.count + countUploadedMovies(),
+    });
   };
 
   return (
     <div className="movies">
       <Header loggedIn={loggedIn} />
       <main className="movies__content">
-        <SearchForm onGetMovies={handleGetMovies} changeMovieList={changeMovieList} />
-        {data.isShow ? <AltText title={data.isMessage} /> : null}
+        <SearchForm onGetMovies={handleGetMovies} />
+        {data.isShow && <AltText title={data.isMessage} />}
         {data.isLoading ? (
           <Preloader />
         ) : (
-          <MoviesCardList movies={data.movies} isBeatFilm={isBeatFilm} />
+          <MoviesCardList movies={data.sliceMovies} isBeatFilm={data.isBeatFilm} />
         )}
-        {data.isButton ? <MoviesButton onChangeMovies={handleChangeMovies} /> : null}
+        {data.isButton ? <MoviesButton changeNumberMovies={handleChangeMovies} /> : null}
       </main>
       <Footer />
     </div>

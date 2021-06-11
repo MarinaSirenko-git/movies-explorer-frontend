@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm({ onGetMovies, changeMovieList }) {
+function SearchForm({ onGetMovies }) {
   const [key, setKey] = useState('');
+  const [isChecked, setIsChecked] = useState(false);
 
   const handleChangeKey = (e) => {
     setKey(e.target.value);
@@ -12,7 +13,12 @@ function SearchForm({ onGetMovies, changeMovieList }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onGetMovies(key);
+    setIsChecked(e.target.checked);
+    onGetMovies(key, isChecked);
+  };
+
+  const handleChange = (e) => {
+    setIsChecked(e.target.checked);
   };
 
   return (
@@ -34,7 +40,7 @@ function SearchForm({ onGetMovies, changeMovieList }) {
         </label>
         <button className="search__btn" aria-label="Найти" type="submit" />
         <div className="search__checkbox">
-          <FilterCheckbox changeMovieList={changeMovieList} />
+          <FilterCheckbox onChange={handleChange} />
         </div>
       </form>
     </div>
@@ -43,7 +49,6 @@ function SearchForm({ onGetMovies, changeMovieList }) {
 
 SearchForm.propTypes = {
   onGetMovies: PropTypes.func.isRequired,
-  changeMovieList: PropTypes.func.isRequired,
 };
 
 export default SearchForm;
