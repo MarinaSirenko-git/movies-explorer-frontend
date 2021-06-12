@@ -1,20 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
+import { REQUIRED_TEXT } from '../../utils/consts';
 
 function SearchForm({ onGetMovies }) {
   const [key, setKey] = useState('');
   const [isChecked, setIsChecked] = useState(false);
+  const [isRequired, setIsRequired] = useState(false);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (error === '') {
+      setIsRequired(false);
+    }
+  }, [error, key]);
 
   const handleChangeKey = (e) => {
+    setError('');
     setKey(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsChecked(e.target.checked);
-    onGetMovies(key, isChecked);
+    if (key === '') {
+      setIsRequired(true);
+      setError(REQUIRED_TEXT);
+    } else {
+      setIsChecked(e.target.checked);
+      onGetMovies(key, isChecked);
+    }
   };
 
   const handleChange = (e) => {
@@ -35,7 +50,6 @@ function SearchForm({ onGetMovies }) {
             aria-label="Поле поиска по каталогу фильмов"
             placeholder="Фильм"
             id="search"
-            required
           />
         </label>
         <button className="search__btn" aria-label="Найти" type="submit" />
@@ -43,6 +57,7 @@ function SearchForm({ onGetMovies }) {
           <FilterCheckbox onChange={handleChange} />
         </div>
       </form>
+      {error && isRequired && <span className="search__error">{error}</span>}
     </div>
   );
 }

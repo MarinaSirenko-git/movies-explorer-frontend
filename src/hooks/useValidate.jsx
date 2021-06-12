@@ -1,5 +1,11 @@
 import { useState, useCallback, useEffect } from 'react';
-import { NAME_REGEX, EMAIL_REGEX } from '../utils/consts';
+import {
+  NAME_REGEX,
+  EMAIL_REGEX,
+  NOEMPTY_TEXT,
+  INVALID_EMAIL_TEXT,
+  INVALID_NAME_TEXT,
+} from '../utils/consts';
 
 function useFormWithValidation(initial) {
   const [data, setData] = useState(initial);
@@ -33,27 +39,25 @@ function useFormWithValidation(initial) {
     switch (name) {
       case 'name':
         if (value === '') {
-          setNameError('Поле не может быть пустым');
+          setNameError(NOEMPTY_TEXT);
         } else if (value.length === 1 || value.length > 30 || !NAME_REGEX.test(value)) {
-          setNameError(
-            'Имя может содержать латиницу, кириллицу, пробел и дефис, должно быть от 2-х и до 30 символов'
-          );
+          setNameError(INVALID_NAME_TEXT);
         } else {
           setNameError('');
         }
         break;
       case 'email':
         if (value === '') {
-          setEmailError('Поле не может быть пустым');
+          setEmailError(NOEMPTY_TEXT);
         } else if (!EMAIL_REGEX.test(value)) {
-          setEmailError('Неверно указан email');
+          setEmailError(INVALID_EMAIL_TEXT);
         } else {
           setEmailError('');
         }
         break;
       case 'password':
         if (value === '') {
-          setPasswordError('Поле не может быть пустым');
+          setPasswordError(NOEMPTY_TEXT);
         } else {
           setPasswordError('');
         }

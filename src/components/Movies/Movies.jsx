@@ -9,122 +9,17 @@ import Footer from '../Footer/Footer';
 import getMovies from '../../utils/MoviesApi';
 import AltText from '../AltText/AltText';
 import MoviesButton from '../MoviesButton/MoviesButton';
-import {
-  DEFAULT_TEXT,
-  SERVER_ERR_TEXT,
-  NORESULT_TEXT,
-  MCL_4K,
-  MCL_TABLET,
-} from '../../utils/consts';
-
-function filterMovies(arr, value, isChecked) {
-  console.log(isChecked);
-  const regex = new RegExp(value, 'i');
-  const lengthFilm = arr.filter((item) => {
-    if (
-      (regex.test(item.nameRU) && item.image.url !== null) ||
-      (regex.test(item.director) && item.image.url !== null) ||
-      (regex.test(item.year) && item.image.url !== null) ||
-      (regex.test(item.country) && item.image.url !== null)
-    ) {
-      return item;
-    }
-    return null;
-  });
-  if (isChecked === true) {
-    return lengthFilm.filter((item) => item.duration <= 40);
-  }
-  return lengthFilm;
-}
-
-function countUploadedMovies() {
-  if (MCL_4K.matches) {
-    return 3;
-  }
-  if (MCL_TABLET.matches) {
-    return 2;
-  }
-  return 2;
-}
-
-function getSliceMovies(movie, n) {
-  if (MCL_4K.matches) {
-    return movie.slice(0, 12 + n);
-  }
-  if (MCL_TABLET.matches) {
-    return movie.slice(0, 8 + n);
-  }
-  return movie.slice(0, 5 + n);
-}
-
-function reducer(state, action) {
-  switch (action.type) {
-    case 'checkLocalStorage':
-    case 'fetch': {
-      const { isMessage, isShow, movies, count } = action;
-      return {
-        ...state,
-        isMessage,
-        isShow,
-        movies,
-        sliceMovies: getSliceMovies(movies, count),
-        isButton: movies.length > getSliceMovies(movies, count).length,
-      };
-    }
-    case 'beforeFetch': {
-      const { isShow, isLoading, isButton } = action;
-      return {
-        ...state,
-        isShow,
-        isLoading,
-        isButton,
-      };
-    }
-    case 'noFaundResult':
-    case 'serverError': {
-      const { isMessage, isShow, isRender } = action;
-      return {
-        ...state,
-        isMessage,
-        isShow,
-        isRender,
-      };
-    }
-    case 'increment': {
-      const { movies, count } = action;
-      return {
-        ...state,
-        movies,
-        sliceMovies: getSliceMovies(movies, count),
-        isButton: movies.length > getSliceMovies(movies, count).length,
-        count,
-      };
-    }
-    case 'finally': {
-      const { isLoading } = action;
-      return {
-        ...state,
-        isLoading,
-      };
-    }
-    default: {
-      const { movies } = action;
-      return {
-        ...state,
-        movies,
-      };
-    }
-  }
-}
+import { filterMovies, countUploadedMovies } from '../../utils/utils';
+import { DEFAULT_TEXT, SERVER_ERR_TEXT, NORESULT_TEXT } from '../../utils/consts';
+import moviesReducer from '../../state/moviesReducer';
+import * as api from '../../utils/MainApi';
 
 function Movies({ loggedIn }) {
-  const [data, dispatch] = useReducer(reducer, {
-    isShow: true,
+  const [data, dispatch] = useReducer(moviesReducer, {
     isMessage: DEFAULT_TEXT,
     isLoading: false,
     isButton: false,
     isBeatFilm: true,
-    isRender: true,
     movies: [],
     sliceMovies: [],
     count: 0,
@@ -135,8 +30,7 @@ function Movies({ loggedIn }) {
     if (searchMovies) {
       dispatch({
         type: 'checkLocalStorage',
-        isMessage: '',
-        isShow: false,
+        isMessage: null,
         movies: searchMovies,
         sliceMovies: searchMovies,
         isButton: searchMovies,
@@ -145,10 +39,10 @@ function Movies({ loggedIn }) {
     } else {
       dispatch({});
     }
-  }, []);
+  }, [data.count]);
 
   const handleGetMovies = (value, isChecked) => {
-    dispatch({ type: 'beforeFetch', isShow: false, isLoading: true, isButton: false });
+    dispatch({ type: 'beforeFetch', isLoading: true, isButton: false, isMessage: null });
     getMovies()
       .then((res) => {
         const sortedMovies = filterMovies(res, value, isChecked);
@@ -157,15 +51,13 @@ function Movies({ loggedIn }) {
           dispatch({
             type: 'noFaundResult',
             isMessage: NORESULT_TEXT,
-            isShow: true,
-            isRender: true,
+            sliceMovies: sortedMovies,
           });
         } else {
           localStorage.setItem('movies', JSON.stringify(sortedMovies));
           dispatch({
             type: 'fetch',
-            isMessage: '',
-            isShow: false,
+            isMessage: null,
             movies: sortedMovies,
             sliceMovies: sortedMovies,
             isButton: sortedMovies,
@@ -178,8 +70,7 @@ function Movies({ loggedIn }) {
         dispatch({
           type: 'serverError',
           isMessage: SERVER_ERR_TEXT,
-          isShow: true,
-          isRender: true,
+          sliceMovies: [],
         });
       })
       .finally(() => dispatch({ type: 'finally', isLoading: false }));
@@ -195,16 +86,39 @@ function Movies({ loggedIn }) {
     });
   };
 
+  const handleMovieDelete = (_id) => {
+    api
+      .deleteMovie(_id)
+      .then(() => {
+        const movies = data.movies.filter((item) => item._id !== _id);
+        dispatch({
+          type: 'fetch',
+          isMessage: null,
+          movies,
+          sliceMovies: movies,
+          isButton: movies,
+          count: data.count,
+        });
+      })
+      .catch((e) => console.log(e));
+  };
+
   return (
     <div className="movies">
       <Header loggedIn={loggedIn} />
       <main className="movies__content">
         <SearchForm onGetMovies={handleGetMovies} />
-        {data.isShow && <AltText title={data.isMessage} />}
+        {data.isMessage && <AltText title={data.isMessage} />}
         {data.isLoading ? (
           <Preloader />
         ) : (
-          <MoviesCardList movies={data.sliceMovies} isBeatFilm={data.isBeatFilm} />
+          data.sliceMovies && (
+            <MoviesCardList
+              movies={data.sliceMovies}
+              isBeatFilm={data.isBeatFilm}
+              onMovieDelete={handleMovieDelete}
+            />
+          )
         )}
         {data.isButton ? <MoviesButton changeNumberMovies={handleChangeMovies} /> : null}
       </main>

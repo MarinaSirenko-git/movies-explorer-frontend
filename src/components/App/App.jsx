@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import './App.css';
-import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
+import { Route, Switch, useHistory, Redirect } from 'react-router-dom';
 import Main from '../Main/Main';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
@@ -8,7 +8,6 @@ import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import NotFound from '../NotFound/NotFound';
-import InfoTooltip from '../InfoTooltip/InfoTooltip';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import * as api from '../../utils/MainApi';
@@ -134,9 +133,10 @@ function App() {
             onLogout={handleLogout}
           />
           <ProtectedRoute path="*" loggedIn={loggedIn} component={NotFound} />
-          <Route path="/">{loggedIn ? <Redirect to="/movies" /> : <Redirect to="/signin" />}</Route>
+          <Route path="/" exact>
+            {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/signin" />}
+          </Route>
         </Switch>
-        <InfoTooltip />
       </div>
     </CurrentUserContext.Provider>
   );

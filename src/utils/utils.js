@@ -1,7 +1,47 @@
-function convertMinutes(duration) {
+import { MCL_4K, MCL_TABLET } from './consts';
+
+export function convertMinutes(duration) {
   const hours = Math.floor(duration / 60);
   const minutes = Math.floor(duration) - hours * 60;
   const formated = `${hours.toString()}ч ${minutes.toString().padStart(2, '0')}м`;
   return formated;
 }
-export default convertMinutes;
+
+export function filterMovies(arr, value, isChecked) {
+  const regex = new RegExp(value, 'i');
+  const lengthFilm = arr.filter((item) => {
+    if (
+      (regex.test(item.nameRU) && item.image.url !== null) ||
+      (regex.test(item.director) && item.image.url !== null) ||
+      (regex.test(item.year) && item.image.url !== null) ||
+      (regex.test(item.country) && item.image.url !== null)
+    ) {
+      return item;
+    }
+    return null;
+  });
+  if (isChecked === true) {
+    return lengthFilm.filter((item) => item.duration <= 40);
+  }
+  return lengthFilm;
+}
+
+export function countUploadedMovies() {
+  if (MCL_4K.matches) {
+    return 3;
+  }
+  if (MCL_TABLET.matches) {
+    return 2;
+  }
+  return 2;
+}
+
+export function getSliceMovies(movie, n) {
+  if (MCL_4K.matches) {
+    return movie.slice(0, 12 + n);
+  }
+  if (MCL_TABLET.matches) {
+    return movie.slice(0, 8 + n);
+  }
+  return movie.slice(0, 5 + n);
+}

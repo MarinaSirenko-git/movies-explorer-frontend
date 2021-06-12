@@ -7,8 +7,13 @@ export const SERVER_ERR_TEXT =
   'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз';
 export const NORESULT_TEXT = 'Ничего не найдено :(';
 export const NOSAVE_TEXT = 'В избранном пока ничего нет :(';
+export const REQUIRED_TEXT = 'Нужно ввести ключевое слово';
+export const NOEMPTY_TEXT = 'Поле не может быть пустым';
+export const INVALID_EMAIL_TEXT = 'Неверно указан email';
+export const INVALID_NAME_TEXT =
+  'Имя может содержать латиницу, кириллицу, пробел и дефис, должно быть от 2-х и до 30 символов';
 export const MCL_4K = window.matchMedia('all and (min-width: 837px)');
 export const MCL_TABLET = window.matchMedia('(min-width: 581px) and (max-width: 836px)');
 export const MCL_MOBILE = window.matchMedia('all and (max-width: 580px)');
-export const NAME_REGEX = /[a-zа-яё/s-]/gi;
+export const NAME_REGEX = /^[a-zа-я/s-]{2,30}$/i;
 export const EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;

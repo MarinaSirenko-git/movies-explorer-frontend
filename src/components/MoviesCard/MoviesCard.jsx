@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 import './MoviesCard.css';
 import { BASE_URL } from '../../utils/consts';
 import * as api from '../../utils/MainApi';
-import convertMinutes from '../../utils/utils';
+import { convertMinutes } from '../../utils/utils';
 
 function MoviesCard({
   _id,
@@ -23,34 +23,49 @@ function MoviesCard({
 }) {
   const location = useLocation();
   const [isSaved, setIsSaved] = useState(false);
+
+  useEffect(() => {
+    const card = JSON.parse(localStorage.getItem(`${nameRU}`));
+    if (card) {
+      setIsSaved(true);
+    }
+  }, [nameRU]);
+
   const handleSaveClick = () => {
-    api
-      .createMovie({
-        country,
-        director,
-        duration,
-        year,
-        description,
-        image,
-        trailer,
-        thumbnail,
-        movieId,
-        nameRU,
-        nameEN,
-      })
-      .then((res) => {
-        if (!res) {
-          throw new Error('Не удалось добавить в избранное');
-        } else {
-          setIsSaved(true);
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    if (!isSaved) {
+      api
+        .createMovie({
+          country,
+          director,
+          duration,
+          year,
+          description,
+          image,
+          trailer,
+          thumbnail,
+          movieId,
+          nameRU,
+          nameEN,
+        })
+        .then((res) => {
+          if (!res) {
+            throw new Error('Не удалось добавить в избранное');
+          } else {
+            setIsSaved(true);
+            localStorage.setItem(`${nameRU}`, JSON.stringify(true));
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    } else {
+      localStorage.removeItem(`${nameRU}`);
+      onMovieDelete(_id);
+    }
   };
 
   const handleDeleteClick = () => {
+    localStorage.removeItem(`${nameRU}`);
     onMovieDelete(_id);
   };
 

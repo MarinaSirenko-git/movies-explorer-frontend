@@ -159,6 +159,10 @@
   background-color: #3456F3;
 }
 
+.movies-card_type_main .movies-card__delete-btn {
+  display: none;
+}
+
 @media screen and (max-width: 580px) {
   .movies-card_type_saved .movies-card__delete-btn {
     opacity: 1;

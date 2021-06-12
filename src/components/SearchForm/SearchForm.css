@@ -3,6 +3,7 @@
 .search {
   padding: 70px 0 80px;
   border-bottom: 1px solid #E8E8E8;
+  position: relative;
 }
 
 @media screen and (max-width: 580px) {
@@ -159,4 +160,18 @@
 
 .search__btn:hover {
   background-color: #3456F3;
+}
+
+/* Error */
+
+.search__error {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.3em;
+  color: #EE3465;
+  max-width: 100%;
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 50px;
 }
