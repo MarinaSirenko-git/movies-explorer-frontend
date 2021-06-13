@@ -29,7 +29,7 @@ function App() {
           setQueryError(res.message);
           throw new Error(res.message);
         } else {
-          setLoggedIn(true);
+          setLoggedIn(false);
           setCurrentUser(res);
           history.push('/signin');
         }
