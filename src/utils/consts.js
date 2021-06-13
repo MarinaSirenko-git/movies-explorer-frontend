@@ -1,6 +1,5 @@
 export const BASE_URL = 'https://api.nomoreparties.co';
-// export const MAIN_API_URL = 'https://api.sirenko-movies.nomoredomains.club';
-export const MAIN_API_URL = 'http://localhost:3001';
+export const MAIN_API_URL = 'https://api.sirenko-movies.nomoredomains.club';
 export const DEFAULT_TEXT =
   'Введите в поиск название фильма, год, режиссёра или любое ключевое слово и получите подборку :)';
 export const SERVER_ERR_TEXT =
