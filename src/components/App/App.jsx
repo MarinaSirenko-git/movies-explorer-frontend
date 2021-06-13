@@ -31,7 +31,7 @@ function App() {
         } else {
           setLoggedIn(true);
           setCurrentUser(res);
-          history.push('/movies');
+          history.push('/signin');
         }
       })
       .catch((e) => console.log(e));
