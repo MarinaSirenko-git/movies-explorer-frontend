@@ -11,7 +11,6 @@ import Portfolio from '../Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 
 function Main({ loggedIn }) {
-  console.log(loggedIn);
   return (
     <div className="main">
       <div className="main__section_style_gray">

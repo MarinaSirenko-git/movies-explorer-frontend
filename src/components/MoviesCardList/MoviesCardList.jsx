@@ -9,8 +9,8 @@ function MoviesCardList({ movies, isBeatFilm, onMovieDelete }) {
       <ul className="cards-list__list">
         {movies.map((movie) => (
           <MoviesCard
-            key={movie._id}
-            _id={movie._id}
+            key={isBeatFilm ? movie.id : movie.movieId}
+            _id={isBeatFilm ? '' : movie._id}
             country={movie.country}
             director={movie.director}
             duration={movie.duration}
@@ -31,7 +31,7 @@ function MoviesCardList({ movies, isBeatFilm, onMovieDelete }) {
 }
 
 MoviesCardList.propTypes = {
-  movies: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  movies: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   isBeatFilm: PropTypes.bool.isRequired,
   onMovieDelete: PropTypes.func.isRequired,
 };

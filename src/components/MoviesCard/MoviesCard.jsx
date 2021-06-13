@@ -31,42 +31,37 @@ function MoviesCard({
     }
   }, [nameRU]);
 
-  const handleSaveClick = () => {
-    if (!isSaved) {
-      api
-        .createMovie({
-          country,
-          director,
-          duration,
-          year,
-          description,
-          image,
-          trailer,
-          thumbnail,
-          movieId,
-          nameRU,
-          nameEN,
-        })
-        .then((res) => {
-          if (!res) {
-            throw new Error('Не удалось добавить в избранное');
-          } else {
-            setIsSaved(true);
-            localStorage.setItem(`${nameRU}`, JSON.stringify(true));
-          }
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    } else {
-      localStorage.removeItem(`${nameRU}`);
-      onMovieDelete(_id);
-    }
-  };
-
   const handleDeleteClick = () => {
     localStorage.removeItem(`${nameRU}`);
     onMovieDelete(_id);
+  };
+
+  const handleSaveClick = () => {
+    api
+      .createMovie({
+        country,
+        director,
+        duration,
+        year,
+        description,
+        image,
+        trailer,
+        thumbnail,
+        movieId,
+        nameRU,
+        nameEN,
+      })
+      .then((res) => {
+        if (!res) {
+          throw new Error('Не удалось добавить в избранное');
+        } else {
+          setIsSaved(true);
+          localStorage.setItem(`${nameRU}`, JSON.stringify(true));
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   return (
