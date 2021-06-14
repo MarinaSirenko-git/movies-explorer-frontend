@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './PasswordInput.css';
 
-function PasswordInput({ password, onChangePassword, error }) {
+function PasswordInput({ password, onChangePassword, error, isDisabledInput }) {
   return (
     <div className="form__wrap">
       <label className="form__label" htmlFor="password-input">
@@ -15,6 +15,7 @@ function PasswordInput({ password, onChangePassword, error }) {
           name="password"
           type="password"
           required
+          disabled={isDisabledInput}
         />
       </label>
       {error && <span className="form__error">{error}</span>}
@@ -26,6 +27,7 @@ PasswordInput.propTypes = {
   password: PropTypes.string.isRequired,
   onChangePassword: PropTypes.func.isRequired,
   error: PropTypes.string.isRequired,
+  isDisabledInput: PropTypes.bool.isRequired,
 };
 
 export default PasswordInput;

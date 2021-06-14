@@ -9,31 +9,50 @@ import useValidate from '../../hooks/useValidate';
 function Login({ onLogin, queryError, setQueryError }) {
   useEffect(() => {
     setQueryError('');
-  }, []);
+  }, [setQueryError]);
 
   const loginData = {
     email: '',
     password: '',
   };
 
-  const { data, handleChange, emailError, passwordError, isValid, resetForm } = useValidate(
-    loginData
-  );
+  const {
+    data,
+    handleChange,
+    emailError,
+    passwordError,
+    isValid,
+    setIsValid,
+    isDisabledInput,
+    setIsDisabledInput,
+    resetForm,
+  } = useValidate(loginData);
+
+  useEffect(() => {
+    setQueryError('');
+  }, [emailError, passwordError, setQueryError]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onLogin(data);
-    resetForm();
+    onLogin(data, resetForm, setIsValid, setIsDisabledInput);
+    setIsValid(false);
+    setIsDisabledInput(true);
   };
 
   return (
     <StartPage>
       <Form onSubmit={handleSubmit} isValid={isValid} queryError={queryError}>
-        <EmailInput email={data.email} onChangeEmail={handleChange} error={emailError} />
+        <EmailInput
+          email={data.email}
+          onChangeEmail={handleChange}
+          error={emailError}
+          isDisabledInput={isDisabledInput}
+        />
         <PasswordInput
           password={data.password}
           onChangePassword={handleChange}
           error={passwordError}
+          isDisabledInput={isDisabledInput}
         />
       </Form>
     </StartPage>

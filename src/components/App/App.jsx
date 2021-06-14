@@ -18,17 +18,22 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [queryError, setQueryError] = useState('');
 
-  const handleRegister = ({ name, email, password }) => {
+  const handleRegister = ({ name, email, password }, resetForm, setIsValid, setIsDisabledInput) => {
     api
       .register(name, email, password)
       .then((res) => {
         if (!res) {
+          setIsValid(true);
+          setIsDisabledInput(false);
           setQueryError('Ошибка при регистрации. Повторите попытку позже');
           throw new Error('Ошибка при регистрации. Повторите попытку позже');
         } else if (res.message) {
+          setIsValid(true);
+          setIsDisabledInput(false);
           setQueryError(res.message);
           throw new Error(res.message);
         } else {
+          resetForm();
           setLoggedIn(false);
           setCurrentUser(res);
           history.push('/signin');
@@ -37,17 +42,22 @@ function App() {
       .catch((e) => console.log(e));
   };
 
-  const handleLogin = ({ email, password }) => {
+  const handleLogin = ({ email, password }, resetForm, setIsValid, setIsDisabledInput) => {
     api
       .authorize(email, password)
       .then((res) => {
         if (!res) {
+          setIsValid(true);
+          setIsDisabledInput(false);
           setQueryError('Ошибка при авторизации. Повторите попытку позже');
           throw new Error('Ошибка при авторизации. Повторите попытку позже');
         } else if (res.message) {
+          setIsValid(true);
+          setIsDisabledInput(false);
           setQueryError(res.message);
           throw new Error(res.message);
         } else {
+          resetForm();
           setLoggedIn(true);
           history.push('/movies');
         }

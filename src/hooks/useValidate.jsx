@@ -13,6 +13,7 @@ function useFormWithValidation(initial) {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [isValid, setIsValid] = useState(false);
+  const [isDisabledInput, setIsDisabledInput] = useState(false);
 
   useEffect(() => {
     if (
@@ -70,14 +71,26 @@ function useFormWithValidation(initial) {
   };
 
   const resetForm = useCallback(
-    (newValue = initial, newIsValid = false) => {
+    (newValue = initial, newIsValid = false, newIsDisabledInput = false) => {
       setData(newValue);
       setIsValid(newIsValid);
+      setIsDisabledInput(newIsDisabledInput);
     },
     [initial, setData, setIsValid]
   );
 
-  return { data, handleChange, nameError, emailError, passwordError, isValid, resetForm };
+  return {
+    data,
+    handleChange,
+    nameError,
+    emailError,
+    passwordError,
+    isValid,
+    setIsValid,
+    isDisabledInput,
+    setIsDisabledInput,
+    resetForm,
+  };
 }
 
 export default useFormWithValidation;
