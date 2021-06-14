@@ -1,5 +1,6 @@
 export const BASE_URL = 'https://api.nomoreparties.co';
-export const MAIN_API_URL = 'https://api.sirenko-movies.nomoredomains.club';
+export const MAIN_API_URL = 'http://localhost:3001';
+// export const MAIN_API_URL = 'https://api.sirenko-movies.nomoredomains.club';
 export const DEFAULT_TEXT =
   'Введите в поиск название фильма, год, режиссёра или любое ключевое слово и получите подборку :)';
 export const SERVER_ERR_TEXT =
@@ -16,3 +17,9 @@ export const MCL_TABLET = window.matchMedia('(min-width: 581px) and (max-width: 
 export const MCL_MOBILE = window.matchMedia('all and (max-width: 580px)');
 export const NAME_REGEX = /^[a-zа-я/s-]{2,30}$/i;
 export const EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+export const SHORT_FILM_DURATION = 40;
+export const MCL_4K_FILMS_NUMBER = 12;
+export const MCL_TABLET_FILMS_NUMBER = 8;
+export const MCL_MOBILE_FILMS_NUMBER = 5;
+export const MCL_4K_FILMS_RETURN = 3;
+export const MCL_TABLET_FILMS_RETURN = 2;

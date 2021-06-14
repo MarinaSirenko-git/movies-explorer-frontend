@@ -1,4 +1,13 @@
-import { MCL_4K, MCL_TABLET } from './consts';
+import {
+  MCL_4K,
+  MCL_TABLET,
+  SHORT_FILM_DURATION,
+  MCL_4K_FILMS_NUMBER,
+  MCL_TABLET_FILMS_NUMBER,
+  MCL_MOBILE_FILMS_NUMBER,
+  MCL_4K_FILMS_RETURN,
+  MCL_TABLET_FILMS_RETURN,
+} from './consts';
 
 export function convertMinutes(duration) {
   const hours = Math.floor(duration / 60);
@@ -21,27 +30,27 @@ export function filterMovies(arr, value, isChecked) {
     return null;
   });
   if (isChecked === true) {
-    return lengthFilm.filter((item) => item.duration <= 40);
+    return lengthFilm.filter((item) => item.duration <= SHORT_FILM_DURATION);
   }
   return lengthFilm;
 }
 
 export function countUploadedMovies() {
   if (MCL_4K.matches) {
-    return 3;
+    return MCL_4K_FILMS_RETURN;
   }
   if (MCL_TABLET.matches) {
-    return 2;
+    return MCL_TABLET_FILMS_RETURN;
   }
-  return 2;
+  return MCL_TABLET_FILMS_RETURN;
 }
 
 export function getSliceMovies(movie, n) {
   if (MCL_4K.matches) {
-    return movie.slice(0, 12 + n);
+    return movie.slice(0, MCL_4K_FILMS_NUMBER + n);
   }
   if (MCL_TABLET.matches) {
-    return movie.slice(0, 8 + n);
+    return movie.slice(0, MCL_TABLET_FILMS_NUMBER + n);
   }
-  return movie.slice(0, 5 + n);
+  return movie.slice(0, MCL_MOBILE_FILMS_NUMBER + n);
 }
