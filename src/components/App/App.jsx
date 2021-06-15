@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import './App.css';
-import { Route, Switch, useHistory, Redirect } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import Main from '../Main/Main';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
@@ -34,9 +34,9 @@ function App() {
           throw new Error(res.message);
         } else {
           resetForm();
-          setLoggedIn(false);
+          setLoggedIn(true);
           setCurrentUser(res);
-          history.push('/signin');
+          history.push('/signup');
         }
       })
       .catch((e) => console.log(e));
@@ -72,10 +72,9 @@ function App() {
         if (res.message) {
           throw new Error('Требуется авторизация');
         } else {
-          setQueryError('');
           setLoggedIn(true);
+          setQueryError('');
           setCurrentUser(res);
-          history.push('/movies');
         }
       })
       .catch((e) => {
@@ -86,7 +85,7 @@ function App() {
 
   useEffect(() => {
     tokenCheck();
-  }, [tokenCheck]);
+  }, []);
 
   const handleUpdateUser = (data, setIsValid, setIsDisabledInput) => {
     api
@@ -136,7 +135,9 @@ function App() {
           <Route path="/signin">
             <Login onLogin={handleLogin} queryError={queryError} setQueryError={setQueryError} />
           </Route>
-          <ProtectedRoute path="/" exact loggedIn={loggedIn} component={Main} />
+          <Route exact path="/">
+            <Main loggedIn={loggedIn} />
+          </Route>
           <ProtectedRoute path="/movies" loggedIn={loggedIn} component={Movies} />
           <ProtectedRoute path="/saved-movies" loggedIn={loggedIn} component={SavedMovies} />
           <ProtectedRoute
@@ -149,9 +150,6 @@ function App() {
             setQueryError={setQueryError}
           />
           <ProtectedRoute path="*" loggedIn={loggedIn} component={NotFound} />
-          <Route path="/" exact>
-            {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/signin" />}
-          </Route>
         </Switch>
       </div>
     </CurrentUserContext.Provider>

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const ProtectedRoute = ({ component: Component, ...props }) => {
   return (
-    <Route>{() => (props.loggedIn ? <Component {...props} /> : <Redirect to="./signup" />)}</Route>
+    <Route>{() => (props.loggedIn ? <Component {...props} /> : <Redirect to="/signin" />)}</Route>
   );
 };
 
