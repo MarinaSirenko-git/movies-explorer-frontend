@@ -1,70 +1,41 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './Profile.css';
 import Header from '../Header/Header';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
-import {
-  NAME_REGEX,
-  EMAIL_REGEX,
-  NOEMPTY_TEXT,
-  INVALID_EMAIL_TEXT,
-  INVALID_NAME_TEXT,
-} from '../../utils/consts';
+import useValidate from '../../hooks/useValidate';
 
-function Profile({ loggedIn, onUpdate, onLogout }) {
+function Profile({ loggedIn, onUpdate, onLogout, queryError, setQueryError }) {
   const currentUser = useContext(CurrentUserContext);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [errorName, setErrorName] = useState('');
-  const [errorEmail, setErrorEmail] = useState('');
-  const [formValid, setFormValid] = useState(false);
-
-  useEffect(() => {
-    setName(String(currentUser.name));
-  }, [currentUser]);
-
-  useEffect(() => {
-    setEmail(String(currentUser.email));
-  }, [currentUser]);
-
-  useEffect(() => {
-    if (errorName || errorEmail) {
-      setFormValid(false);
-    } else {
-      setFormValid(true);
-    }
-  }, [errorName, errorEmail, name, email]);
-
-  const handleChangeName = (e) => {
-    const { value } = e.target;
-    setName(value);
-    if (value === '') {
-      setErrorName(NOEMPTY_TEXT);
-    } else if (!NAME_REGEX.test(value)) {
-      setErrorName(INVALID_NAME_TEXT);
-    } else {
-      setErrorName('');
-    }
+  const userData = {
+    name: currentUser.name,
+    email: currentUser.email,
   };
 
-  const handleChangeEmail = (e) => {
-    const { value } = e.target;
-    setEmail(value);
-    if (value === '') {
-      setErrorEmail(NOEMPTY_TEXT);
-    } else if (!EMAIL_REGEX.test(value)) {
-      setErrorEmail(INVALID_EMAIL_TEXT);
-    } else {
-      setErrorEmail('');
-    }
-  };
+  const {
+    data,
+    handleChange,
+    nameError,
+    emailError,
+    isValid,
+    setIsValid,
+    isDisabledInput,
+    setIsDisabledInput,
+  } = useValidate(userData);
+
+  useEffect(() => {
+    setQueryError('');
+  }, [emailError, setQueryError]);
+
+  useEffect(() => {
+    setIsValid(false);
+  }, [setIsValid]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onUpdate({
-      name,
-      email,
-    });
+    onUpdate(data, setIsValid, setIsDisabledInput);
+    setIsValid(false);
+    setIsDisabledInput(true);
   };
 
   return (
@@ -76,33 +47,34 @@ function Profile({ loggedIn, onUpdate, onLogout }) {
           <label className="profile__label" htmlFor="user-name">
             <span className="profile__subtitle">Имя</span>
             <input
-              className="profile__input"
-              value={name}
-              onChange={handleChangeName}
+              className={`profile__input ${nameError ? 'profile__input_error' : ''}`}
+              value={data.name}
+              onChange={handleChange}
               type="text"
               name="name"
               required
+              disabled={isDisabledInput}
             />
           </label>
-          {errorName && <span className="profile__error">{errorName}</span>}
+          {nameError && <span className="profile__error">{nameError}</span>}
           <label className="profile__label" htmlFor="user-email">
             <span className="profile__subtitle profile__subtitle_bottom">E-mail</span>
             <input
-              className="profile__input profile__input_bottom"
+              className={`profile__input profile__input_bottom ${
+                emailError ? 'profile__input_error' : ''
+              }`}
               id="user-email"
-              value={email}
-              onChange={handleChangeEmail}
+              value={data.email}
+              onChange={handleChange}
               type="email"
               name="email"
               required
+              disabled={isDisabledInput}
             />
           </label>
-          {errorEmail && <span className="profile__error">{errorEmail}</span>}
-          <button
-            className="profile__btn profile__btn_type_edit"
-            type="submit"
-            disabled={!formValid}
-          >
+          {emailError && <span className="profile__error">{emailError}</span>}
+          {queryError && <span className="profile__query-error">{queryError}</span>}
+          <button className="profile__btn profile__btn_type_edit" type="submit" disabled={!isValid}>
             Редактировать
           </button>
         </form>
@@ -118,6 +90,8 @@ Profile.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
   onUpdate: PropTypes.func.isRequired,
   onLogout: PropTypes.func.isRequired,
+  queryError: PropTypes.string.isRequired,
+  setQueryError: PropTypes.func.isRequired,
 };
 
 export default Profile;

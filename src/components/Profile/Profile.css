@@ -52,6 +52,7 @@
   max-width: 410px;
   width: 100%;
   padding-bottom: 16px;
+  position: relative;
 }
 
 /* Label */
@@ -94,6 +95,10 @@
 
 .profile__input_bottom {
   border-bottom: none;
+}
+
+.profile__input_error {
+  color: #EE3465;
 }
 
 /* Error */
@@ -146,4 +151,17 @@
 .profile__btn_type_logout {
   color: #ee3465;
   font-weight: 500;
+}
+
+/* Query-error */
+
+.profile__query-error {
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.3em;
+  color: #EE3465;
+  max-width: 100%;
+  display: block;
+  position: absolute;
+  left: 0;
 }

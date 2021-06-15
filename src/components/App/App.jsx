@@ -88,14 +88,18 @@ function App() {
     tokenCheck();
   }, [tokenCheck]);
 
-  const handleUpdateUser = (data) => {
+  const handleUpdateUser = (data, setIsValid, setIsDisabledInput) => {
     api
       .updateProfile(data)
       .then((res) => {
         if (res.message) {
+          setIsValid(true);
+          setIsDisabledInput(false);
           setQueryError(res.message);
           throw new Error(res.message);
         } else {
+          setIsValid(false);
+          setIsDisabledInput(false);
           setQueryError('');
           setCurrentUser(res);
         }
@@ -141,6 +145,8 @@ function App() {
             component={Profile}
             onUpdate={handleUpdateUser}
             onLogout={handleLogout}
+            queryError={queryError}
+            setQueryError={setQueryError}
           />
           <ProtectedRoute path="*" loggedIn={loggedIn} component={NotFound} />
           <Route path="/" exact>
