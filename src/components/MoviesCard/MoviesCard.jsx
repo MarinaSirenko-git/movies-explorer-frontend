@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 import './MoviesCard.css';
 import { BASE_URL } from '../../utils/consts';
-import * as api from '../../utils/MainApi';
 import { convertMinutes } from '../../utils/utils';
 
 function MoviesCard({
@@ -20,6 +19,7 @@ function MoviesCard({
   nameRU,
   nameEN,
   onMovieDelete,
+  onMovieCreate,
 }) {
   const location = useLocation();
   const [isSaved, setIsSaved] = useState(false);
@@ -37,8 +37,8 @@ function MoviesCard({
   };
 
   const handleSaveClick = () => {
-    api
-      .createMovie({
+    onMovieCreate(
+      {
         country,
         director,
         duration,
@@ -50,18 +50,9 @@ function MoviesCard({
         movieId,
         nameRU,
         nameEN,
-      })
-      .then((res) => {
-        if (!res) {
-          throw new Error('Не удалось добавить в избранное');
-        } else {
-          setIsSaved(true);
-          localStorage.setItem(`${nameRU}`, JSON.stringify(true));
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+      },
+      setIsSaved
+    );
   };
 
   return (
@@ -106,14 +97,20 @@ MoviesCard.propTypes = {
   trailer: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   duration: PropTypes.number.isRequired,
-  country: PropTypes.string.isRequired,
+  country: PropTypes.string,
   director: PropTypes.string.isRequired,
   year: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   thumbnail: PropTypes.string.isRequired,
   movieId: PropTypes.number.isRequired,
-  nameEN: PropTypes.string.isRequired,
+  nameEN: PropTypes.string,
   onMovieDelete: PropTypes.func.isRequired,
+  onMovieCreate: PropTypes.func.isRequired,
+};
+
+MoviesCard.defaultProps = {
+  country: 'Страна не указана',
+  nameEN: 'No Name',
 };
 
 export default MoviesCard;

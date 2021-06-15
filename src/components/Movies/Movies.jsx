@@ -103,6 +103,22 @@ function Movies({ loggedIn }) {
       .catch((e) => console.log(e));
   };
 
+  const handleMovieCreate = (movieFields, setIsSaved) => {
+    api
+      .createMovie(movieFields)
+      .then((res) => {
+        if (!res) {
+          throw new Error('Не удалось добавить в избранное');
+        } else {
+          setIsSaved(true);
+          localStorage.setItem(`${movieFields.nameRU}`, JSON.stringify(true));
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
   return (
     <div className="movies">
       <Header loggedIn={loggedIn} />
@@ -117,6 +133,7 @@ function Movies({ loggedIn }) {
               movies={data.sliceMovies}
               isBeatFilm={data.isBeatFilm}
               onMovieDelete={handleMovieDelete}
+              onMovieCreate={handleMovieCreate}
             />
           )
         )}
