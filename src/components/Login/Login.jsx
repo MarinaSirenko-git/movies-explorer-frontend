@@ -6,10 +6,10 @@ import EmailInput from '../EmailInput/EmailInput';
 import PasswordInput from '../PasswordInput/PasswordInput';
 import useValidate from '../../hooks/useValidate';
 
-function Login({ onLogin, queryError, setQueryError }) {
+function Login({ onLogin, queryMessage, setQueryMessage }) {
   useEffect(() => {
-    setQueryError('');
-  }, [setQueryError]);
+    setQueryMessage('');
+  }, [setQueryMessage]);
 
   const loginData = {
     email: '',
@@ -29,8 +29,8 @@ function Login({ onLogin, queryError, setQueryError }) {
   } = useValidate(loginData);
 
   useEffect(() => {
-    setQueryError('');
-  }, [emailError, passwordError, setQueryError]);
+    setQueryMessage('');
+  }, [emailError, passwordError, setQueryMessage]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,7 +41,7 @@ function Login({ onLogin, queryError, setQueryError }) {
 
   return (
     <StartPage>
-      <Form onSubmit={handleSubmit} isValid={isValid} queryError={queryError}>
+      <Form onSubmit={handleSubmit} isValid={isValid} queryMessage={queryMessage}>
         <EmailInput
           email={data.email}
           onChangeEmail={handleChange}
@@ -61,8 +61,8 @@ function Login({ onLogin, queryError, setQueryError }) {
 
 Login.propTypes = {
   onLogin: PropTypes.func.isRequired,
-  queryError: PropTypes.string.isRequired,
-  setQueryError: PropTypes.func.isRequired,
+  queryMessage: PropTypes.string.isRequired,
+  setQueryMessage: PropTypes.func.isRequired,
 };
 
 export default Login;

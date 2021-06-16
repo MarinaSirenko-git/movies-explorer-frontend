@@ -11,12 +11,13 @@ import NotFound from '../NotFound/NotFound';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import * as api from '../../utils/MainApi';
+import { NOREGISTER_TEXT, SACCESS_PROFILE_TEXT } from '../../utils/consts';
 
 function App() {
   const history = useHistory();
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
-  const [queryError, setQueryError] = useState('');
+  const [queryMessage, setQueryMessage] = useState('');
 
   const handleRegister = ({ name, email, password }, resetForm, setIsValid, setIsDisabledInput) => {
     api
@@ -25,12 +26,12 @@ function App() {
         if (!res) {
           setIsValid(true);
           setIsDisabledInput(false);
-          setQueryError('Ошибка при регистрации. Повторите попытку позже');
-          throw new Error('Ошибка при регистрации. Повторите попытку позже');
+          setQueryMessage(NOREGISTER_TEXT);
+          throw new Error(NOREGISTER_TEXT);
         } else if (res.message) {
           setIsValid(true);
           setIsDisabledInput(false);
-          setQueryError(res.message);
+          setQueryMessage(res.message);
           throw new Error(res.message);
         } else {
           resetForm();
@@ -49,12 +50,12 @@ function App() {
         if (!res) {
           setIsValid(true);
           setIsDisabledInput(false);
-          setQueryError('Ошибка при авторизации. Повторите попытку позже');
+          setQueryMessage('Ошибка при авторизации. Повторите попытку позже');
           throw new Error('Ошибка при авторизации. Повторите попытку позже');
         } else if (res.message) {
           setIsValid(true);
           setIsDisabledInput(false);
-          setQueryError(res.message);
+          setQueryMessage(res.message);
           throw new Error(res.message);
         } else {
           resetForm();
@@ -70,10 +71,10 @@ function App() {
       .getUser()
       .then((res) => {
         if (res.message) {
-          throw new Error('Требуется авторизация');
+          throw new Error(res.message);
         } else {
           setLoggedIn(true);
-          setQueryError('');
+          setQueryMessage('');
           setCurrentUser(res);
         }
       })
@@ -85,7 +86,7 @@ function App() {
 
   useEffect(() => {
     tokenCheck();
-  }, []);
+  }, [tokenCheck]);
 
   const handleUpdateUser = (data, setIsValid, setIsDisabledInput) => {
     api
@@ -94,12 +95,12 @@ function App() {
         if (res.message) {
           setIsValid(true);
           setIsDisabledInput(false);
-          setQueryError(res.message);
+          setQueryMessage(res.message);
           throw new Error(res.message);
         } else {
           setIsValid(false);
           setIsDisabledInput(false);
-          setQueryError('');
+          setQueryMessage(SACCESS_PROFILE_TEXT);
           setCurrentUser(res);
         }
       })
@@ -128,12 +129,16 @@ function App() {
           <Route path="/signup">
             <Register
               onRegister={handleRegister}
-              queryError={queryError}
-              setQueryError={setQueryError}
+              queryMessage={queryMessage}
+              setQueryMessage={setQueryMessage}
             />
           </Route>
           <Route path="/signin">
-            <Login onLogin={handleLogin} queryError={queryError} setQueryError={setQueryError} />
+            <Login
+              onLogin={handleLogin}
+              queryMessage={queryMessage}
+              setQueryMessage={setQueryMessage}
+            />
           </Route>
           <Route exact path="/">
             <Main loggedIn={loggedIn} />
@@ -146,8 +151,8 @@ function App() {
             component={Profile}
             onUpdate={handleUpdateUser}
             onLogout={handleLogout}
-            queryError={queryError}
-            setQueryError={setQueryError}
+            queryMessage={queryMessage}
+            setQueryMessage={setQueryMessage}
           />
           <ProtectedRoute path="*" loggedIn={loggedIn} component={NotFound} />
         </Switch>

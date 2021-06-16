@@ -5,7 +5,7 @@ import Header from '../Header/Header';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import useValidate from '../../hooks/useValidate';
 
-function Profile({ loggedIn, onUpdate, onLogout, queryError, setQueryError }) {
+function Profile({ loggedIn, onUpdate, onLogout, queryMessage, setQueryMessage }) {
   const currentUser = useContext(CurrentUserContext);
   const userData = {
     name: currentUser.name,
@@ -24,8 +24,8 @@ function Profile({ loggedIn, onUpdate, onLogout, queryError, setQueryError }) {
   } = useValidate(userData);
 
   useEffect(() => {
-    setQueryError('');
-  }, [emailError, setQueryError]);
+    setQueryMessage('');
+  }, [emailError, setQueryMessage]);
 
   useEffect(() => {
     setIsValid(false);
@@ -73,7 +73,7 @@ function Profile({ loggedIn, onUpdate, onLogout, queryError, setQueryError }) {
             />
           </label>
           {emailError && <span className="profile__error">{emailError}</span>}
-          {queryError && <span className="profile__query-error">{queryError}</span>}
+          {queryMessage && <span className="profile__query-error">{queryMessage}</span>}
           <button className="profile__btn profile__btn_type_edit" type="submit" disabled={!isValid}>
             Редактировать
           </button>
@@ -90,8 +90,8 @@ Profile.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
   onUpdate: PropTypes.func.isRequired,
   onLogout: PropTypes.func.isRequired,
-  queryError: PropTypes.string.isRequired,
-  setQueryError: PropTypes.func.isRequired,
+  queryMessage: PropTypes.string.isRequired,
+  setQueryMessage: PropTypes.func.isRequired,
 };
 
 export default Profile;

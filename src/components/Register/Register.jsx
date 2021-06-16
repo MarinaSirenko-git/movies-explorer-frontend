@@ -7,10 +7,10 @@ import EmailInput from '../EmailInput/EmailInput';
 import PasswordInput from '../PasswordInput/PasswordInput';
 import useValidate from '../../hooks/useValidate';
 
-function Register({ onRegister, queryError, setQueryError }) {
+function Register({ onRegister, queryMessage, setQueryMessage }) {
   useEffect(() => {
-    setQueryError('');
-  }, [setQueryError]);
+    setQueryMessage('');
+  }, [setQueryMessage]);
 
   const registerData = {
     name: '',
@@ -32,8 +32,8 @@ function Register({ onRegister, queryError, setQueryError }) {
   } = useValidate(registerData);
 
   useEffect(() => {
-    setQueryError('');
-  }, [emailError, setQueryError]);
+    setQueryMessage('');
+  }, [emailError, setQueryMessage]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -44,7 +44,7 @@ function Register({ onRegister, queryError, setQueryError }) {
 
   return (
     <StartPage>
-      <Form onSubmit={handleSubmit} isValid={isValid} queryError={queryError}>
+      <Form onSubmit={handleSubmit} isValid={isValid} queryMessage={queryMessage}>
         <NameInput
           name={data.name}
           onChangeName={handleChange}
@@ -70,8 +70,8 @@ function Register({ onRegister, queryError, setQueryError }) {
 
 Register.propTypes = {
   onRegister: PropTypes.func.isRequired,
-  queryError: PropTypes.string.isRequired,
-  setQueryError: PropTypes.func.isRequired,
+  queryMessage: PropTypes.string.isRequired,
+  setQueryMessage: PropTypes.func.isRequired,
 };
 
 export default Register;
