@@ -8,6 +8,14 @@ function savedMoviesReducer(state, action) {
         movies,
       };
     }
+    case 'filter': {
+      const { isMessage, filterMovies } = action;
+      return {
+        ...state,
+        isMessage,
+        filterMovies,
+      };
+    }
     case 'noFaundResult':
     case 'serverError': {
       const { isMessage, movies } = action;

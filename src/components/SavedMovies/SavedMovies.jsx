@@ -18,6 +18,7 @@ function SavedMovies({ loggedIn }) {
   const [data, dispatch] = useReducer(savedMoviesReducer, {
     isMessage: null,
     isBeatFilm: false,
+    filterMovies: null,
     movies: [],
   });
 
@@ -71,13 +72,13 @@ function SavedMovies({ loggedIn }) {
       dispatch({
         type: 'noFaundResult',
         isMessage: NORESULT_TEXT,
-        movies: sortedMovies,
+        filterMovies: sortedMovies,
       });
     } else {
       dispatch({
-        type: 'fetch',
+        type: 'filter',
         isMessage: null,
-        movies: sortedMovies,
+        filterMovies: sortedMovies,
       });
     }
   };
@@ -90,7 +91,7 @@ function SavedMovies({ loggedIn }) {
         {data.isMessage && <AltText title={data.isMessage} />}
         {data.movies && (
           <MoviesCardList
-            movies={data.movies}
+            movies={data.filterMovies ? data.filterMovies : data.movies}
             isBeatFilm={data.isBeatFilm}
             onMovieDelete={handleMovieDelete}
           />
