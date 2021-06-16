@@ -13,6 +13,7 @@ export const INVALID_EMAIL_TEXT = 'Неверно указан email';
 export const INVALID_NAME_TEXT =
   'Имя может содержать латиницу, кириллицу, пробел и дефис, должно быть от 2-х и до 30 символов';
 export const NOREGISTER_TEXT = 'Ошибка при регистрации. Повторите попытку позже';
+export const NOAUTHORIZE_TEXT = 'Ошибка при авторизации. Повторите попытку позже';
 export const SACCESS_PROFILE_TEXT = 'Данные успешно изменены!';
 export const MCL_4K = window.matchMedia('all and (min-width: 837px)');
 export const MCL_TABLET = window.matchMedia('(min-width: 581px) and (max-width: 836px)');

@@ -6,24 +6,28 @@ import SearchForm from '../SearchForm/SearchForm';
 import Preloader from '../Preloader/Preloader';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
-import getMovies from '../../utils/MoviesApi';
 import AltText from '../AltText/AltText';
 import MoviesButton from '../MoviesButton/MoviesButton';
 import { filterMovies, countUploadedMovies } from '../../utils/utils';
-import { DEFAULT_TEXT, SERVER_ERR_TEXT, NORESULT_TEXT } from '../../utils/consts';
+import { DEFAULT_TEXT, NORESULT_TEXT } from '../../utils/consts';
 import moviesReducer from '../../state/moviesReducer';
 import * as api from '../../utils/MainApi';
 
-function Movies({ loggedIn }) {
+function Movies({ loggedIn, beatFilmMovies }) {
   const [data, dispatch] = useReducer(moviesReducer, {
     isMessage: DEFAULT_TEXT,
     isLoading: false,
     isButton: false,
     isBeatFilm: true,
+    defaultMovies: [],
     movies: [],
     sliceMovies: [],
     count: 0,
   });
+
+  useEffect(() => {
+    dispatch({ type: 'fetch', defaultMovies: beatFilmMovies });
+  }, [beatFilmMovies]);
 
   useEffect(() => {
     const searchMovies = JSON.parse(localStorage.getItem('movies'));
@@ -43,37 +47,27 @@ function Movies({ loggedIn }) {
 
   const handleGetMovies = (value, isChecked) => {
     dispatch({ type: 'beforeFetch', isLoading: true, isButton: false, isMessage: null });
-    getMovies()
-      .then((res) => {
-        const sortedMovies = filterMovies(res, value, isChecked);
-        if (sortedMovies.length === 0) {
-          localStorage.removeItem('movies');
-          dispatch({
-            type: 'noFaundResult',
-            isMessage: NORESULT_TEXT,
-            sliceMovies: sortedMovies,
-          });
-        } else {
-          localStorage.setItem('movies', JSON.stringify(sortedMovies));
-          dispatch({
-            type: 'fetch',
-            isMessage: null,
-            movies: sortedMovies,
-            sliceMovies: sortedMovies,
-            isButton: sortedMovies,
-            count: data.count,
-          });
-        }
-      })
-      .catch(() => {
-        localStorage.removeItem('movies');
-        dispatch({
-          type: 'serverError',
-          isMessage: SERVER_ERR_TEXT,
-          sliceMovies: [],
-        });
-      })
-      .finally(() => dispatch({ type: 'finally', isLoading: false }));
+    const sortedMovies = filterMovies(data.defaultMovies, value, isChecked);
+    if (sortedMovies.length === 0) {
+      localStorage.removeItem('movies');
+      dispatch({
+        type: 'noFaundResult',
+        isLoading: false,
+        isMessage: NORESULT_TEXT,
+        sliceMovies: sortedMovies,
+      });
+    } else {
+      localStorage.setItem('movies', JSON.stringify(sortedMovies));
+      dispatch({
+        type: 'filter',
+        isMessage: null,
+        isLoading: false,
+        movies: sortedMovies,
+        sliceMovies: sortedMovies,
+        isButton: sortedMovies,
+        count: data.count,
+      });
+    }
   };
 
   const handleChangeMovies = () => {
@@ -92,7 +86,7 @@ function Movies({ loggedIn }) {
       .then(() => {
         const movies = data.movies.filter((item) => item._id !== _id);
         dispatch({
-          type: 'fetch',
+          type: 'filter',
           isMessage: null,
           movies,
           sliceMovies: movies,
@@ -146,6 +140,7 @@ function Movies({ loggedIn }) {
 
 Movies.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
+  beatFilmMovies: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Movies;

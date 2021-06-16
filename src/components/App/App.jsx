@@ -11,13 +11,23 @@ import NotFound from '../NotFound/NotFound';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import * as api from '../../utils/MainApi';
-import { NOREGISTER_TEXT, SACCESS_PROFILE_TEXT } from '../../utils/consts';
+import { NOREGISTER_TEXT, NOAUTHORIZE_TEXT, SACCESS_PROFILE_TEXT } from '../../utils/consts';
+import getMovies from '../../utils/MoviesApi';
 
 function App() {
   const history = useHistory();
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [queryMessage, setQueryMessage] = useState('');
+  const [beatFilmMovies, setBeatFilmMovies] = useState([]);
+
+  useEffect(() => {
+    getMovies()
+      .then((res) => {
+        setBeatFilmMovies(res);
+      })
+      .catch((e) => console.log(e));
+  }, []);
 
   const handleRegister = ({ name, email, password }, resetForm, setIsValid, setIsDisabledInput) => {
     api
@@ -50,8 +60,8 @@ function App() {
         if (!res) {
           setIsValid(true);
           setIsDisabledInput(false);
-          setQueryMessage('Ошибка при авторизации. Повторите попытку позже');
-          throw new Error('Ошибка при авторизации. Повторите попытку позже');
+          setQueryMessage(NOAUTHORIZE_TEXT);
+          throw new Error(NOAUTHORIZE_TEXT);
         } else if (res.message) {
           setIsValid(true);
           setIsDisabledInput(false);
@@ -143,7 +153,12 @@ function App() {
           <Route exact path="/">
             <Main loggedIn={loggedIn} />
           </Route>
-          <ProtectedRoute path="/movies" loggedIn={loggedIn} component={Movies} />
+          <ProtectedRoute
+            path="/movies"
+            loggedIn={loggedIn}
+            component={Movies}
+            beatFilmMovies={beatFilmMovies}
+          />
           <ProtectedRoute path="/saved-movies" loggedIn={loggedIn} component={SavedMovies} />
           <ProtectedRoute
             path="/profile"

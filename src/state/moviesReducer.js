@@ -2,12 +2,20 @@ import { getSliceMovies } from '../utils/utils';
 
 function moviesReducer(state, action) {
   switch (action.type) {
-    case 'checkLocalStorage':
     case 'fetch': {
-      const { isMessage, movies, count } = action;
+      const { defaultMovies } = action;
+      return {
+        ...state,
+        defaultMovies,
+      };
+    }
+    case 'checkLocalStorage':
+    case 'filter': {
+      const { isMessage, movies, count, isLoading } = action;
       return {
         ...state,
         isMessage,
+        isLoading,
         movies,
         sliceMovies: getSliceMovies(movies, count),
         isButton: movies.length > getSliceMovies(movies, count).length,
@@ -24,9 +32,10 @@ function moviesReducer(state, action) {
     }
     case 'noFaundResult':
     case 'serverError': {
-      const { isMessage, sliceMovies } = action;
+      const { isMessage, isLoading, sliceMovies } = action;
       return {
         ...state,
+        isLoading,
         isMessage,
         sliceMovies,
       };
