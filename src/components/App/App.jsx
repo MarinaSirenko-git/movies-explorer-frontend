@@ -96,7 +96,7 @@ function App() {
 
   useEffect(() => {
     tokenCheck();
-  }, [tokenCheck]);
+  }, [tokenCheck, history]);
 
   const handleUpdateUser = (data, setIsValid, setIsDisabledInput) => {
     api
@@ -169,7 +169,7 @@ function App() {
             queryMessage={queryMessage}
             setQueryMessage={setQueryMessage}
           />
-          <ProtectedRoute path="*" loggedIn={loggedIn} component={NotFound} />
+          <ProtectedRoute loggedIn={loggedIn} component={NotFound} />
         </Switch>
       </div>
     </CurrentUserContext.Provider>

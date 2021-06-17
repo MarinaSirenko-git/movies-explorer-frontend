@@ -36,7 +36,7 @@ function StartPage({ children }) {
 }
 
 StartPage.propTypes = {
-  children: PropTypes.objectOf(PropTypes.string).isRequired,
+  children: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default StartPage;
