@@ -52,7 +52,7 @@ function SavedMovies({ loggedIn }) {
       });
   }, [userContext._id]);
 
-  const handleMovieDelete = (_id) => {
+  const handleMovieDelete = (_id, nameRU) => {
     api
       .deleteMovie(_id)
       .then(() => {
@@ -62,6 +62,7 @@ function SavedMovies({ loggedIn }) {
           isMessage: null,
           movies,
         });
+        localStorage.removeItem(`${nameRU}`);
       })
       .catch((e) => console.log(e));
   };

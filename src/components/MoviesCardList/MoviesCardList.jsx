@@ -3,7 +3,13 @@ import PropTypes from 'prop-types';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({ movies, isBeatFilm, onMovieDelete, onMovieCreate }) {
+function MoviesCardList({
+  movies,
+  isBeatFilm,
+  onMovieDelete,
+  onMovieDeleteFromMovies,
+  onMovieCreate,
+}) {
   return (
     <section className="cards-list">
       <ul className="cards-list__list">
@@ -24,6 +30,7 @@ function MoviesCardList({ movies, isBeatFilm, onMovieDelete, onMovieCreate }) {
             nameEN={movie.nameEN}
             onMovieDelete={onMovieDelete}
             onMovieCreate={onMovieCreate}
+            onMovieDeleteFromMovies={onMovieDeleteFromMovies}
           />
         ))}
       </ul>
@@ -35,6 +42,7 @@ MoviesCardList.propTypes = {
   movies: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   isBeatFilm: PropTypes.bool.isRequired,
   onMovieDelete: PropTypes.func.isRequired,
+  onMovieDeleteFromMovies: PropTypes.func.isRequired,
   onMovieCreate: PropTypes.func.isRequired,
 };
 

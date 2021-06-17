@@ -47,7 +47,7 @@ function App() {
           resetForm();
           setLoggedIn(true);
           setCurrentUser(res);
-          history.push('/signup');
+          history.push('/signin');
         }
       })
       .catch((e) => console.log(e));

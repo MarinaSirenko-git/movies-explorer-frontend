@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import PropTypes from 'prop-types';
 import './Movies.css';
 import Header from '../Header/Header';
@@ -24,6 +24,17 @@ function Movies({ loggedIn, beatFilmMovies }) {
     sliceMovies: [],
     count: 0,
   });
+
+  const [userMovies, setUserMovies] = useState([]);
+
+  useEffect(() => {
+    api
+      .getMovies()
+      .then((res) => {
+        setUserMovies(res);
+      })
+      .catch((e) => console.log(e));
+  }, [data.sliceMovies]);
 
   useEffect(() => {
     dispatch({ type: 'fetch', defaultMovies: beatFilmMovies });
@@ -80,7 +91,11 @@ function Movies({ loggedIn, beatFilmMovies }) {
     });
   };
 
-  const handleMovieDelete = (_id) => {
+  const handleMovieDeleteFromMovies = (movieId, nameRU, setIsSaved) => {
+    const userMoviesId = userMovies
+      .filter((item) => item.movieId === movieId)
+      .map((element) => element._id);
+    const _id = userMoviesId[0];
     api
       .deleteMovie(_id)
       .then(() => {
@@ -93,6 +108,8 @@ function Movies({ loggedIn, beatFilmMovies }) {
           isButton: movies,
           count: data.count,
         });
+        setIsSaved(false);
+        localStorage.removeItem(`${nameRU}`);
       })
       .catch((e) => console.log(e));
   };
@@ -126,7 +143,7 @@ function Movies({ loggedIn, beatFilmMovies }) {
             <MoviesCardList
               movies={data.sliceMovies}
               isBeatFilm={data.isBeatFilm}
-              onMovieDelete={handleMovieDelete}
+              onMovieDeleteFromMovies={handleMovieDeleteFromMovies}
               onMovieCreate={handleMovieCreate}
             />
           )

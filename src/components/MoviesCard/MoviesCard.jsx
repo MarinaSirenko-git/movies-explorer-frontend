@@ -19,6 +19,7 @@ function MoviesCard({
   nameRU,
   nameEN,
   onMovieDelete,
+  onMovieDeleteFromMovies,
   onMovieCreate,
 }) {
   const location = useLocation();
@@ -32,27 +33,30 @@ function MoviesCard({
   }, [nameRU]);
 
   const handleDeleteClick = () => {
-    localStorage.removeItem(`${nameRU}`);
-    onMovieDelete(_id);
+    onMovieDelete(_id, nameRU);
   };
 
-  const handleSaveClick = () => {
-    onMovieCreate(
-      {
-        country,
-        director,
-        duration,
-        year,
-        description,
-        image,
-        trailer,
-        thumbnail,
-        movieId,
-        nameRU,
-        nameEN,
-      },
-      setIsSaved
-    );
+  const handleClick = () => {
+    if (!isSaved) {
+      onMovieCreate(
+        {
+          country,
+          director,
+          duration,
+          year,
+          description,
+          image,
+          trailer,
+          thumbnail,
+          movieId,
+          nameRU,
+          nameEN,
+        },
+        setIsSaved
+      );
+    } else {
+      onMovieDeleteFromMovies(movieId, nameRU, setIsSaved);
+    }
   };
 
   return (
@@ -65,7 +69,7 @@ function MoviesCard({
         <button
           className={`movies-card__save-btn ${isSaved ? 'movies-card__save-btn_saved' : ''}`}
           type="button"
-          onClick={handleSaveClick}
+          onClick={handleClick}
         >
           Сохранить
         </button>
@@ -106,6 +110,7 @@ MoviesCard.propTypes = {
   nameEN: PropTypes.string,
   onMovieDelete: PropTypes.func.isRequired,
   onMovieCreate: PropTypes.func.isRequired,
+  onMovieDeleteFromMovies: PropTypes.func.isRequired,
 };
 
 MoviesCard.defaultProps = {
