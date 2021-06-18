@@ -51,34 +51,35 @@ function Movies({ loggedIn, beatFilmMovies }) {
         isButton: searchMovies,
         count: data.count,
       });
-    } else {
-      dispatch({});
     }
   }, [data.count]);
 
   const handleGetMovies = (value, isChecked) => {
     dispatch({ type: 'beforeFetch', isLoading: true, isButton: false, isMessage: null });
     const sortedMovies = filterMovies(data.defaultMovies, value, isChecked);
-    if (sortedMovies.length === 0) {
-      localStorage.removeItem('movies');
-      dispatch({
-        type: 'noFaundResult',
-        isLoading: false,
-        isMessage: NORESULT_TEXT,
-        sliceMovies: sortedMovies,
-      });
-    } else {
-      localStorage.setItem('movies', JSON.stringify(sortedMovies));
-      dispatch({
-        type: 'filter',
-        isMessage: null,
-        isLoading: false,
-        movies: sortedMovies,
-        sliceMovies: sortedMovies,
-        isButton: sortedMovies,
-        count: data.count,
-      });
-    }
+    const timer = setTimeout(() => {
+      if (sortedMovies.length === 0) {
+        localStorage.removeItem('movies');
+        dispatch({
+          type: 'noFaundResult',
+          isLoading: false,
+          isMessage: NORESULT_TEXT,
+          sliceMovies: sortedMovies,
+        });
+      } else {
+        localStorage.setItem('movies', JSON.stringify(sortedMovies));
+        dispatch({
+          type: 'filter',
+          isMessage: null,
+          isLoading: false,
+          movies: sortedMovies,
+          sliceMovies: sortedMovies,
+          isButton: sortedMovies,
+          count: data.count,
+        });
+      }
+      clearTimeout(timer);
+    }, 2000);
   };
 
   const handleChangeMovies = () => {
