@@ -17,7 +17,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 14px 0;
+  padding: 14px 0 0;
 }
 
 /* Title */
@@ -53,8 +53,7 @@
 
 .movies-card__img {
   width: 100%;
-  max-width: 360px;
-  max-height: 201px;
+  height: 201px;
   display: block;
   object-fit: cover;
   object-position: center;
@@ -63,7 +62,7 @@
 
 @media screen and (max-width: 1024px) {
   .movies-card__img {
-    max-width: 339px;
+    width: 100%;
   }
 }
 
@@ -158,6 +157,10 @@
 
 .movies-card__delete-btn:hover {
   background-color: #3456F3;
+}
+
+.movies-card_type_main .movies-card__delete-btn {
+  display: none;
 }
 
 @media screen and (max-width: 580px) {

@@ -10,7 +10,7 @@
 
 .cards-list__list {
   display: grid;
-  grid-template-columns: repeat(3, minmax(min-content, max-content));
+  grid-template-columns: repeat(3, minmax(250px, 360px));
   grid-template-rows: repeat(auto-fill, minmax(201px, 1fr));
   row-gap: 60px;
   column-gap: 30px;
@@ -21,16 +21,15 @@
 
 @media screen and (max-width: 1024px) {
   .cards-list__list {
-    row-gap: 20px;
+    row-gap: 47px;
     column-gap: 20px;
-    grid-template-rows: repeat(auto-fill, minmax(160px, 1fr));
+    grid-template-columns: repeat(2, minmax(250px, 360px));
+    grid-template-rows: repeat(auto-fill, minmax(190px, 1fr));
   }
 }
 
 @media screen and (max-width: 836px) {
   .cards-list__list {
-    grid-template-columns: repeat(2, minmax(min-content, max-content));
-    grid-template-rows: repeat(auto-fill, minmax(190px, 1fr));
     column-gap: 30px;
     row-gap: 47px;
   }
@@ -38,36 +37,8 @@
 
 @media screen and (max-width: 580px) {
   .cards-list__list {
-    grid-template-columns: minmax(min-content, max-content);
+    grid-template-columns: 300px;
+    grid-template-rows: 1fr;
     row-gap: 39px;
-  }
-}
-
-/* Btn */
-
-.cards-list__btn {
-  margin-top: 50px;
-  display: block;
-  max-width: 320px;
-  width: 100%;
-  height: 36px;
-  border-radius: 6px;
-  border: none;
-  background: #F4F4F4;
-  color: #000;
-  font-size: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all .5s;;
-}
-
-.cards-list__btn:hover {
-  background-color: #3456F3;
-  color: #fff;
-}
-
-@media screen and (max-width: 580px) {
-  .cards-list__btn {
-    max-width: 240px;
   }
 }

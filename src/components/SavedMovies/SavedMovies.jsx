@@ -1,21 +1,101 @@
-import React from 'react';
-import './SavedMovies.css';
+import React, { useEffect, useContext, useReducer } from 'react';
 import PropTypes from 'prop-types';
+import './SavedMovies.css';
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
+import AltText from '../AltText/AltText';
+import { NOSAVE_TEXT, SERVER_ERR_TEXT, NORESULT_TEXT } from '../../utils/consts';
 
-function SavedMovies({ isEmpty }) {
+import * as api from '../../utils/MainApi';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
+import savedMoviesReducer from '../../state/savedMoviesReducer';
+import { filterMovies } from '../../utils/utils';
+
+function SavedMovies({ loggedIn }) {
+  const userContext = useContext(CurrentUserContext);
+  const [data, dispatch] = useReducer(savedMoviesReducer, {
+    isMessage: null,
+    isBeatFilm: false,
+    filterMovies: null,
+    movies: [],
+  });
+
+  useEffect(() => {
+    api
+      .getMovies()
+      .then((movies) => {
+        if (!movies) {
+          throw new Error(SERVER_ERR_TEXT);
+        } else if (movies.length === 0) {
+          dispatch({
+            type: 'noFaundResult',
+            isMessage: NOSAVE_TEXT,
+            movies,
+          });
+        } else {
+          const userMovies = movies.filter((item) => item.owner === userContext._id);
+          dispatch({
+            type: 'fetch',
+            isMessage: null,
+            movies: userMovies,
+          });
+        }
+      })
+      .catch(() => {
+        dispatch({
+          type: 'serverError',
+          isMessage: SERVER_ERR_TEXT,
+          movies: [],
+        });
+      });
+  }, [userContext._id]);
+
+  const handleMovieDelete = (_id, nameRU) => {
+    api
+      .deleteMovie(_id)
+      .then(() => {
+        const movies = data.movies.filter((item) => item._id !== _id);
+        dispatch({
+          type: 'fetch',
+          isMessage: null,
+          movies,
+        });
+        localStorage.removeItem(`${nameRU}`);
+      })
+      .catch((e) => console.log(e));
+  };
+
+  const handleSortMovies = (value, isChecked) => {
+    const sortedMovies = filterMovies(data.movies, value, isChecked);
+    if (sortedMovies.length === 0) {
+      dispatch({
+        type: 'noFaundResult',
+        isMessage: NORESULT_TEXT,
+        filterMovies: sortedMovies,
+      });
+    } else {
+      dispatch({
+        type: 'filter',
+        isMessage: null,
+        filterMovies: sortedMovies,
+      });
+    }
+  };
+
   return (
     <div className="saved-movies">
-      <Header loggedIn />
+      <Header loggedIn={loggedIn} />
       <main className="saved-movies__content">
-        <SearchForm />
-        {isEmpty ? (
-          <p className="saved-movies__alt-text">В избранном ничего нет :(</p>
-        ) : (
-          <MoviesCardList />
+        <SearchForm onGetMovies={handleSortMovies} />
+        {data.isMessage && <AltText title={data.isMessage} />}
+        {data.movies && (
+          <MoviesCardList
+            movies={data.filterMovies ? data.filterMovies : data.movies}
+            isBeatFilm={data.isBeatFilm}
+            onMovieDelete={handleMovieDelete}
+          />
         )}
       </main>
       <Footer />
@@ -24,7 +104,7 @@ function SavedMovies({ isEmpty }) {
 }
 
 SavedMovies.propTypes = {
-  isEmpty: PropTypes.bool.isRequired,
+  loggedIn: PropTypes.bool.isRequired,
 };
 
 export default SavedMovies;

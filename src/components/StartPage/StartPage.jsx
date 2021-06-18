@@ -3,16 +3,17 @@ import PropTypes from 'prop-types';
 import './StartPage.css';
 import { Link, useLocation } from 'react-router-dom';
 import Logo from '../Logo/Logo';
-import Form from '../Form/Form';
 
-function StartPage({ isRegister }) {
+function StartPage({ children }) {
   const location = useLocation();
   return (
     <main className="start-page">
       <div className="start-page__content">
         <Logo />
-        <h1 className="start-page__title">{isRegister ? 'Добро пожаловать!' : 'Рады видеть!'}</h1>
-        <Form isRegister={isRegister} />
+        <h1 className="start-page__title">
+          {location.pathname === '/signup' ? 'Добро пожаловать!' : 'Рады видеть!'}
+        </h1>
+        {children}
         {location.pathname === '/signin' && (
           <p className="start-page__text">
             Ещё не зарегистрированы?
@@ -35,7 +36,7 @@ function StartPage({ isRegister }) {
 }
 
 StartPage.propTypes = {
-  isRegister: PropTypes.bool.isRequired,
+  children: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default StartPage;

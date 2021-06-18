@@ -1,0 +1,44 @@
+/* Wrap */
+
+.form__wrap {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+/* Label */
+
+.form__label {
+  font-size: 10px;
+  font-weight: 400;
+  color: #A0A0A0;
+}
+
+/* Input */
+
+.form__input {
+  border: none;
+  border-bottom: 1px solid #E8E8E8;
+  width: 100%;
+  height: auto;
+  min-height: 32px;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: #fafafa;
+}
+
+.form__input_error {
+  color: #EE3465;
+}
+
+/* Error */
+
+.form__error {
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.3em;
+  color: #EE3465;
+  max-width: 100%;
+  display: block;
+  margin-top: 6px;
+}

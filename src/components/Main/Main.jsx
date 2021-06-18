@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './Main.css';
 import Header from '../Header/Header';
 import Promo from '../Promo/Promo';
@@ -9,11 +10,11 @@ import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 
-function Main() {
+function Main({ loggedIn }) {
   return (
     <div className="main">
       <div className="main__section_style_gray">
-        <Header loggedIn={false} />
+        <Header loggedIn={loggedIn} />
       </div>
       <main className="main__content">
         <div className="main__section main__section_promo main__section_style_gray">
@@ -45,5 +46,9 @@ function Main() {
     </div>
   );
 }
+
+Main.propTypes = {
+  loggedIn: PropTypes.bool.isRequired,
+};
 
 export default Main;
