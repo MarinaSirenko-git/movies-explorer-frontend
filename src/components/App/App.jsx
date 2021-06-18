@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import './App.css';
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import Main from '../Main/Main';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
@@ -16,10 +16,38 @@ import getMovies from '../../utils/MoviesApi';
 
 function App() {
   const history = useHistory();
+  const location = useLocation();
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [queryMessage, setQueryMessage] = useState('');
   const [beatFilmMovies, setBeatFilmMovies] = useState([]);
+
+  const tokenCheck = useCallback(() => {
+    api
+      .getUser()
+      .then((res) => {
+        if (res.message) {
+          throw new Error(res.message);
+        } else {
+          setLoggedIn(true);
+          setQueryMessage('');
+          setCurrentUser(res);
+          if (location.pathname === '/signin' || location.pathname === '/signup') {
+            history.push('/movies');
+          } else {
+            history.push(location.pathname);
+          }
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        history.push('/signin');
+      });
+  }, [history]);
+
+  useEffect(() => {
+    tokenCheck();
+  }, [tokenCheck, history]);
 
   useEffect(() => {
     getMovies()
@@ -75,28 +103,6 @@ function App() {
       })
       .catch((e) => console.log(e));
   };
-
-  const tokenCheck = useCallback(() => {
-    api
-      .getUser()
-      .then((res) => {
-        if (res.message) {
-          throw new Error(res.message);
-        } else {
-          setLoggedIn(true);
-          setQueryMessage('');
-          setCurrentUser(res);
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-        history.push('/signin');
-      });
-  }, [history]);
-
-  useEffect(() => {
-    tokenCheck();
-  }, [tokenCheck, history]);
 
   const handleUpdateUser = (data, setIsValid, setIsDisabledInput) => {
     api
