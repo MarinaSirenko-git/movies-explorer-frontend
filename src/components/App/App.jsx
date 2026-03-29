@@ -40,10 +40,10 @@ function App() {
         }
       })
       .catch((e) => {
-        console.log(e);
+        console.error(e);
         history.push('/signin');
       });
-  }, [history]);
+  }, [history, location.pathname]);
 
   useEffect(() => {
     tokenCheck();
@@ -54,7 +54,7 @@ function App() {
       .then((res) => {
         setBeatFilmMovies(res);
       })
-      .catch((e) => console.log(e));
+      .catch((e) =>console.error(e));
   }, []);
 
   const handleRegister = ({ name, email, password }, resetForm, setIsValid, setIsDisabledInput) => {
@@ -78,7 +78,7 @@ function App() {
           history.push('/signin');
         }
       })
-      .catch((e) => console.log(e));
+      .catch((e) =>console.error(e));
   };
 
   const handleLogin = ({ email, password }, resetForm, setIsValid, setIsDisabledInput) => {
@@ -101,7 +101,7 @@ function App() {
           history.push('/movies');
         }
       })
-      .catch((e) => console.log(e));
+      .catch((e) =>console.error(e));
   };
 
   const handleUpdateUser = (data, setIsValid, setIsDisabledInput) => {
@@ -120,7 +120,7 @@ function App() {
           setCurrentUser(res);
         }
       })
-      .catch((e) => console.log(e));
+      .catch((e) =>console.error(e));
   };
 
   const handleLogout = () => {
@@ -135,7 +135,7 @@ function App() {
           history.push('/signin');
         }
       })
-      .catch((e) => console.log(e));
+      .catch((e) =>console.error(e));
   };
 
   return (

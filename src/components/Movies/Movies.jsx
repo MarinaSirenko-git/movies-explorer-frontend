@@ -33,7 +33,7 @@ function Movies({ loggedIn, beatFilmMovies }) {
       .then((res) => {
         setUserMovies(res);
       })
-      .catch((e) => console.log(e));
+      .catch((e) =>console.error(e));
   }, [data.sliceMovies]);
 
   useEffect(() => {
@@ -112,7 +112,7 @@ function Movies({ loggedIn, beatFilmMovies }) {
         setIsSaved(false);
         localStorage.removeItem(`${nameRU}`);
       })
-      .catch((e) => console.log(e));
+      .catch((e) =>console.error(e));
   };
 
   const handleMovieCreate = (movieFields, setIsSaved) => {
@@ -127,7 +127,7 @@ function Movies({ loggedIn, beatFilmMovies }) {
         }
       })
       .catch((e) => {
-        console.log(e);
+       console.error(e);
       });
   };
 

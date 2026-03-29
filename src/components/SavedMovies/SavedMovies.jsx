@@ -64,7 +64,7 @@ function SavedMovies({ loggedIn }) {
         });
         localStorage.removeItem(`${nameRU}`);
       })
-      .catch((e) => console.log(e));
+      .catch((e) =>console.error(e));
   };
 
   const handleSortMovies = (value, isChecked) => {
