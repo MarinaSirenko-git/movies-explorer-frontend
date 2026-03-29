@@ -126,9 +126,7 @@ function Movies({ loggedIn, beatFilmMovies }) {
           localStorage.setItem(`${movieFields.nameRU}`, JSON.stringify(true));
         }
       })
-      .catch((e) => {
-       
-      });
+      .catch();
   };
 
   return (

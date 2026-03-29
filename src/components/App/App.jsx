@@ -39,7 +39,7 @@ function App() {
           }
         }
       })
-      .catch((e) => {
+      .catch(() => {
         history.push('/signin');
       });
   }, [history, location.pathname]);
