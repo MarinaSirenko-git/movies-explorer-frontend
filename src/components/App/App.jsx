@@ -40,7 +40,6 @@ function App() {
         }
       })
       .catch((e) => {
-        console.error(e);
         history.push('/signin');
       });
   }, [history, location.pathname]);
@@ -54,7 +53,7 @@ function App() {
       .then((res) => {
         setBeatFilmMovies(res);
       })
-      .catch((e) =>console.error(e));
+      .catch();
   }, []);
 
   const handleRegister = ({ name, email, password }, resetForm, setIsValid, setIsDisabledInput) => {
@@ -78,7 +77,7 @@ function App() {
           history.push('/signin');
         }
       })
-      .catch((e) =>console.error(e));
+      .catch();
   };
 
   const handleLogin = ({ email, password }, resetForm, setIsValid, setIsDisabledInput) => {
@@ -101,7 +100,7 @@ function App() {
           history.push('/movies');
         }
       })
-      .catch((e) =>console.error(e));
+      .catch();
   };
 
   const handleUpdateUser = (data, setIsValid, setIsDisabledInput) => {
@@ -120,7 +119,7 @@ function App() {
           setCurrentUser(res);
         }
       })
-      .catch((e) =>console.error(e));
+      .catch();
   };
 
   const handleLogout = () => {
@@ -135,7 +134,7 @@ function App() {
           history.push('/signin');
         }
       })
-      .catch((e) =>console.error(e));
+      .catch();
   };
 
   return (
