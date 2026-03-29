@@ -158,7 +158,15 @@ function Movies({ loggedIn, beatFilmMovies }) {
 
 Movies.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
-  beatFilmMovies: PropTypes.arrayOf(PropTypes.object).isRequired,
+  beatFilmMovies: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+      duration: PropTypes.number,
+      image: PropTypes.string,
+      trailerLink: PropTypes.string,
+    })
+  ).isRequired,
 };
 
 export default Movies;

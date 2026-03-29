@@ -21,7 +21,7 @@ function Form({ onSubmit, children, isValid, queryMessage }) {
 
 Form.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  children: PropTypes.arrayOf(PropTypes.object).isRequired,
+  children: PropTypes.node.isRequired,
   isValid: PropTypes.bool.isRequired,
   queryMessage: PropTypes.string.isRequired,
 };
