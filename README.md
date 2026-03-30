@@ -26,5 +26,4 @@
 
 ***
 - Ссылка на макет: [diploma.fig](https://drive.google.com/file/d/1R9TrO8cixsG6L9pI_zTrNcT8DdqXVRjm/view?usp=sharing)
-- Домен: sirenko-movies.nomoredomains.club
-- Задачи описанны подробно на доске в Trello https://trello.com/b/wGL2F3KG/diploma
+- Деплой: movies-explorer-frontend.pages.dev
