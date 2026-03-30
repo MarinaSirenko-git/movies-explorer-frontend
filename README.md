@@ -26,4 +26,4 @@
 
 ***
 - Ссылка на макет: [diploma.fig](https://drive.google.com/file/d/1R9TrO8cixsG6L9pI_zTrNcT8DdqXVRjm/view?usp=sharing)
-- Деплой: movies-explorer-frontend.pages.dev
+- Деплой: [movies-explorer-frontend.pages.dev](https://movies-explorer-frontend.pages.dev)
