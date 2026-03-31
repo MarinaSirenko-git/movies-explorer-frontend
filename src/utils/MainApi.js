@@ -1,5 +1,13 @@
 import { MAIN_API_URL } from './consts';
 
+const checkResponse = (res) => {
+  if (res.ok) return res.json();
+  return res
+    .json()
+    .catch(() => ({}))
+    .then((body) => Promise.reject(body));
+};
+
 export const getMovies = () => {
   return fetch(`${MAIN_API_URL}/movies`, {
     method: 'GET',
@@ -10,7 +18,7 @@ export const getMovies = () => {
       'Content-Type': 'application/json',
     },
   })
-    .then((res) => res.json())
+    .then(checkResponse)
     .then((movies) => movies);
 };
 
@@ -35,7 +43,7 @@ export const createMovie = (data) => {
       nameRU: data.nameRU,
       nameEN: data.nameEN,
     }),
-  }).then((res) => res.json());
+  }).then(checkResponse);
 };
 
 export const deleteMovie = (_id) => {
@@ -46,7 +54,7 @@ export const deleteMovie = (_id) => {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-  }).then((res) => res.json());
+  }).then(checkResponse);
 };
 
 export const register = (name, email, password) => {
@@ -58,7 +66,7 @@ export const register = (name, email, password) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ name, email, password }),
-  }).then((res) => res.json());
+  }).then(checkResponse);
 };
 
 export const authorize = (email, password) => {
@@ -70,7 +78,7 @@ export const authorize = (email, password) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email, password }),
-  }).then((res) => res.json());
+  }).then(checkResponse);
 };
 
 export const logout = () => {
@@ -82,7 +90,7 @@ export const logout = () => {
       'Content-Type': 'application/json',
     },
   })
-    .then((res) => res.json())
+    .then(checkResponse)
     .then((data) => data);
 };
 
@@ -95,7 +103,7 @@ export const getUser = () => {
       'Content-Type': 'application/json',
     },
   })
-    .then((res) => res.json())
+    .then(checkResponse)
     .then((data) => data);
 };
 
@@ -111,5 +119,5 @@ export const updateProfile = (data) => {
       name: data.name,
       email: data.email,
     }),
-  }).then((res) => res.json());
+  }).then(checkResponse);
 };

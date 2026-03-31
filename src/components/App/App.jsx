@@ -23,37 +23,40 @@ function App() {
   const [beatFilmMovies, setBeatFilmMovies] = useState([]);
 
   const tokenCheck = useCallback(() => {
-    api
+    return api
       .getUser()
       .then((res) => {
-        if (res.message) {
-          throw new Error(res.message);
-        } else {
-          setLoggedIn(true);
-          setQueryMessage('');
-          setCurrentUser(res);
-          if (location.pathname === '/signin' || location.pathname === '/signup') {
-            history.push('/movies');
-          } else {
-            history.push(location.pathname);
-          }
-        }
+        setLoggedIn(true);
+        setQueryMessage('');
+        setCurrentUser(res);
+        return res;
       })
       .catch(() => {
-        history.push('/signin');
+        setLoggedIn(false);
+        setCurrentUser({});
+        return null;
       });
-  }, [history, location.pathname]);
+  }, []);
 
   useEffect(() => {
     tokenCheck();
-  }, [tokenCheck, history]);
+  }, [tokenCheck]);
+
+  useEffect(() => {
+    const { pathname } = location;
+    const isAuthRoute = pathname === '/signin' || pathname === '/signup';
+
+    if (loggedIn && isAuthRoute) {
+      history.push('/movies');
+    }
+  }, [loggedIn, location.pathname, history, location]);
 
   useEffect(() => {
     getMovies()
       .then((res) => {
         setBeatFilmMovies(res);
       })
-      .catch();
+      .catch(() => {});
   }, []);
 
   const handleRegister = ({ name, email, password }, resetForm, setIsValid, setIsDisabledInput) => {
@@ -71,13 +74,22 @@ function App() {
           setQueryMessage(res.message);
           throw new Error(res.message);
         } else {
-          resetForm();
-          setLoggedIn(true);
-          setCurrentUser(res);
-          history.push('/signin');
+          return api.authorize(email, password).then(() => api.getUser());
         }
       })
-      .catch();
+      .then((user) => {
+        if (!user) return;
+        resetForm();
+        setLoggedIn(true);
+        setCurrentUser(user);
+        setQueryMessage('');
+        history.push('/movies');
+      })
+      .catch((err) => {
+        setIsValid(true);
+        setIsDisabledInput(false);
+        setQueryMessage(err?.message || NOREGISTER_TEXT);
+      });
   };
 
   const handleLogin = ({ email, password }, resetForm, setIsValid, setIsDisabledInput) => {
@@ -95,12 +107,22 @@ function App() {
           setQueryMessage(res.message);
           throw new Error(res.message);
         } else {
-          resetForm();
-          setLoggedIn(true);
-          history.push('/movies');
+          return api.getUser();
         }
       })
-      .catch();
+      .then((user) => {
+        if (!user) return;
+        resetForm();
+        setLoggedIn(true);
+        setCurrentUser(user);
+        setQueryMessage('');
+        history.push('/movies');
+      })
+      .catch((err) => {
+        setIsValid(true);
+        setIsDisabledInput(false);
+        setQueryMessage(err?.message || NOAUTHORIZE_TEXT);
+      });
   };
 
   const handleUpdateUser = (data, setIsValid, setIsDisabledInput) => {
@@ -119,7 +141,11 @@ function App() {
           setCurrentUser(res);
         }
       })
-      .catch();
+      .catch((err) => {
+        setIsValid(true);
+        setIsDisabledInput(false);
+        setQueryMessage(err?.message || 'Ошибка при обновлении профиля. Повторите попытку позже');
+      });
   };
 
   const handleLogout = () => {
@@ -134,7 +160,11 @@ function App() {
           history.push('/signin');
         }
       })
-      .catch();
+      .catch(() => {
+        setCurrentUser({});
+        setLoggedIn(false);
+        history.push('/signin');
+      });
   };
 
   return (
@@ -174,7 +204,9 @@ function App() {
             queryMessage={queryMessage}
             setQueryMessage={setQueryMessage}
           />
-          <ProtectedRoute loggedIn={loggedIn} component={NotFound} />
+          <Route>
+            <NotFound />
+          </Route>
         </Switch>
       </div>
     </CurrentUserContext.Provider>
